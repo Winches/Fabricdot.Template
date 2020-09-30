@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>Fabricdot.Template</id>
+        <version>0.1.2-alpha</version>
+        <authors>Cyan</authors>
+        <owners>Cyan</owners>
+        <projectUrl>https://github.com/Winches/Fabricdot.Template</projectUrl>
+        <license type="file">LICENSE</license>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <copyright></copyright>
+        <title>Fabricdot Template</title>
+        <description>Template use to build web app with Fabricdot.Core</description>
+        <summary></summary>
+        <releaseNotes></releaseNotes>
+        <tags>dotnet-new template fabricdot</tags>
+        <language>en-US</language>
+        <packageTypes>
+            <packageType name="Template" />
+        </packageTypes>
+        <dependencies></dependencies>
+    </metadata>
+    <files>
+        <file src="**" exclude="**\bin\**\*;**\obj\**\*;**\*.user;**\*.log;**\.vscode\**\*;**\.vs\**\*;" />
+        <file src="LICENSE" exclude="pack.ps1" />
+    </files>
+</package>

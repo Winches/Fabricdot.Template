@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  fabricdot-webapi:
+    image: ${DOCKER_REGISTRY}/fabricdotwebapi
+    volumes: 
+      - api_data:/app/wwwroot:rw
+      - api_data:/app/logs:rw
+
+volumes: 
+  api_data:
+    external: false

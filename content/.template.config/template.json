@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "cyan",
+  "classifications": [ "WebAPI", "DDD","Fabricdot" ],
+  "identity": "Fabricdot.Template.CSharp",
+  "groupIdentity":"Fabricdot.Template",
+  "name": "ASP.NET Core Web API with Fabricdot.Core",
+  "shortName": "fabricdotapi",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "Fabricdot",
+  "preferNameDirectory": true,
+  "symbols":{
+    "includetest": {
+        "type": "parameter",
+        "datatype": "bool",
+        "defaultValue": "true"
+    }
+  },
+  "sources":[{
+    "modifiers": [{
+      "condition": "(!includetest)",
+      "exclude": []
+      }
+    ]
+  }]
+}

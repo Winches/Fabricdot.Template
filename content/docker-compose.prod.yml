@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  fabricdot-webapi:
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "5200:80"
