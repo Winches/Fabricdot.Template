@@ -1,8 +1,7 @@
 version: "3.4"
 
 services:
-  fabricdot-webapi:
-    image: ${DOCKER_REGISTRY}/fabricdotwebapi:dev
+  webapi:
     build:
       context: .
       dockerfile: src/Fabricdot.WebApi/Dockerfile
