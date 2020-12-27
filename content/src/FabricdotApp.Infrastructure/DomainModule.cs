@@ -2,7 +2,7 @@
 using Fabricdot.Infrastructure.Core.Domain;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Fabricdot.Infrastructure
+namespace FabricdotApp.Infrastructure
 {
     public class DomainModule : IModule
     {

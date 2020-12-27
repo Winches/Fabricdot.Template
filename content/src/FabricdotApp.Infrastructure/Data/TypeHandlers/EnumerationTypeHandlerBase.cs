@@ -2,7 +2,7 @@
 using Dapper;
 using Fabricdot.Domain.Core.ValueObjects;
 
-namespace Fabricdot.Infrastructure.Data.TypeHandlers
+namespace FabricdotApp.Infrastructure.Data.TypeHandlers
 {
     public abstract class EnumerationTypeHandlerBase<T> : SqlMapper.TypeHandler<T> where T : Enumeration
     {

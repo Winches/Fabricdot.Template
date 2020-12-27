@@ -3,7 +3,7 @@ using System.Linq;
 using Dapper;
 using Fabricdot.Common.Core.Reflections;
 
-namespace Fabricdot.Infrastructure.Data.TypeHandlers
+namespace FabricdotApp.Infrastructure.Data.TypeHandlers
 {
     public static class SqlMapperTypeHandlerConfiguration
     {

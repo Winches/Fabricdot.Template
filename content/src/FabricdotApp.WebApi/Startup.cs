@@ -1,13 +1,13 @@
-using Fabricdot.Infrastructure;
 using Fabricdot.Infrastructure.Core.DependencyInjection;
-using Fabricdot.WebApi.Configuration;
+using FabricdotApp.Infrastructure;
+using FabricdotApp.WebApi.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Fabricdot.WebApi
+namespace FabricdotApp.WebApi
 {
     public class Startup
     {

@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 
-namespace Fabricdot.Infrastructure.Data
+namespace FabricdotApp.Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {

@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Fabricdot.Infrastructure\Fabricdot.Infrastructure.csproj" />
+    <ProjectReference Include="..\FabricdotApp.Infrastructure\FabricdotApp.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

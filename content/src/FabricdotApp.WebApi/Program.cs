@@ -3,7 +3,7 @@ using Fabricdot.WebApi.Core;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace Fabricdot.WebApi
+namespace FabricdotApp.WebApi
 {
     public class Program
     {

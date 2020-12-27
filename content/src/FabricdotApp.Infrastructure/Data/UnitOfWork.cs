@@ -1,7 +1,7 @@
 ﻿using System;
 using Fabricdot.Infrastructure.EntityFrameworkCore;
 
-namespace Fabricdot.Infrastructure.Data
+namespace FabricdotApp.Infrastructure.Data
 {
     public class UnitOfWork : UnitOfWorkBase
     {

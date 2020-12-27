@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace Fabricdot.WebApi.Configuration
+namespace FabricdotApp.WebApi.Configuration
 {
     public static class ConfigurationSwagger
     {

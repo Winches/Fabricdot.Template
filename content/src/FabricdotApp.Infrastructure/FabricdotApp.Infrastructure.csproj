@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Fabricdot.Domain\Fabricdot.Domain.csproj" />
+    <ProjectReference Include="..\FabricdotApp.Domain\FabricdotApp.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

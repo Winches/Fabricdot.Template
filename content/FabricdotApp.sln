@@ -5,15 +5,15 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{79C6125F-8796-468A-943C-65680138695B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fabricdot.Domain", "src\Fabricdot.Domain\Fabricdot.Domain.csproj", "{02747E6E-976E-42BA-805D-1F30B828BA3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FabricdotApp.Domain", "src\FabricdotApp.Domain\FabricdotApp.Domain.csproj", "{02747E6E-976E-42BA-805D-1F30B828BA3B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fabricdot.Domain.Shared", "src\Fabricdot.Domain.Shared\Fabricdot.Domain.Shared.csproj", "{F2B40161-4BEC-4B41-9CC8-D6D27929811F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FabricdotApp.Domain.Shared", "src\FabricdotApp.Domain.Shared\FabricdotApp.Domain.Shared.csproj", "{F2B40161-4BEC-4B41-9CC8-D6D27929811F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fabricdot.Infrastructure", "src\Fabricdot.Infrastructure\Fabricdot.Infrastructure.csproj", "{733246A3-9EAF-4E0D-86D1-594168D5D5A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FabricdotApp.Infrastructure", "src\FabricdotApp.Infrastructure\FabricdotApp.Infrastructure.csproj", "{733246A3-9EAF-4E0D-86D1-594168D5D5A5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fabricdot.WebApi", "src\Fabricdot.WebApi\Fabricdot.WebApi.csproj", "{E3CC8E99-3191-4A36-B68C-CCE5D038E1C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FabricdotApp.WebApi", "src\FabricdotApp.WebApi\FabricdotApp.WebApi.csproj", "{E3CC8E99-3191-4A36-B68C-CCE5D038E1C3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fabricdot.Common", "src\Fabricdot.Common\Fabricdot.Common.csproj", "{DCD3294E-EFC3-4EFD-A2EC-C6019D4582A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FabricdotApp.Common", "src\FabricdotApp.Common\FabricdotApp.Common.csproj", "{DCD3294E-EFC3-4EFD-A2EC-C6019D4582A9}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{A644315C-0CCE-4B37-8D4A-8B1608B096DD}"
 EndProject

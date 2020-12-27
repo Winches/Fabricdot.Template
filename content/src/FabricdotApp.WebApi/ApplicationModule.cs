@@ -2,14 +2,15 @@ using System;
 using Fabricdot.Domain.Core.SharedKernel;
 using Fabricdot.Infrastructure.Core.Data;
 using Fabricdot.Infrastructure.Core.DependencyInjection;
-using Fabricdot.Infrastructure.Data;
-using Fabricdot.WebApi.Configuration;
 using Fabricdot.WebApi.Core.Configuration;
+using FabricdotApp.Infrastructure.Data;
+using FabricdotApp.Infrastructure.Data.TypeHandlers;
+using FabricdotApp.WebApi.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace Fabricdot.WebApi
+namespace FabricdotApp.WebApi
 {
     public class ApplicationModule : IModule
     {
@@ -46,6 +47,7 @@ namespace Fabricdot.WebApi
 #endif
             });
 
+            SqlMapperTypeHandlerConfiguration.AddTypeHandlers();
             services.AddScoped<ISqlConnectionFactory, SqlConnectionFactory>(provider =>
                 new SqlConnectionFactory(_configuration.GetConnectionString("Default")));
 
