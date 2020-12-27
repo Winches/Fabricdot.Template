@@ -1,3 +1,6 @@
+using System;
+using Fabricdot.Domain.Core.SharedKernel;
+using Fabricdot.Infrastructure.Core.Data;
 using Fabricdot.Infrastructure.Core.DependencyInjection;
 using Fabricdot.Infrastructure.Data;
 using Fabricdot.WebApi.Configuration;
@@ -44,6 +47,10 @@ namespace Fabricdot.WebApi
 
             #endregion
 
+            SystemClock.Configure(DateTimeKind.Utc);
+
+            services.AddScoped<IEntityChangeTracker, EntityChangeTracker>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             //add project services here.
         }
     }

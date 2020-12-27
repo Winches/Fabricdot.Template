@@ -15,7 +15,7 @@ namespace Fabricdot.WebApi.Configuration
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AspCore API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Fabricdot API", Version = "v1" });
                 c.DocumentFilter<LowercaseDocumentFilter>();
                 c.EnableAnnotations();
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
