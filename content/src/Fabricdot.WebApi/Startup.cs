@@ -23,7 +23,7 @@ namespace Fabricdot.WebApi
         {
             services.RegisterModules(
                 new DomainModule(),
-                new ApplicationModule());
+                new ApplicationModule(Configuration));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

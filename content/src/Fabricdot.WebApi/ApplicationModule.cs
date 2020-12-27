@@ -5,14 +5,22 @@ using Fabricdot.Infrastructure.Core.DependencyInjection;
 using Fabricdot.Infrastructure.Data;
 using Fabricdot.WebApi.Configuration;
 using Fabricdot.WebApi.Core.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace Fabricdot.WebApi
 {
-    public class ApplicationModule:IModule
+    public class ApplicationModule : IModule
     {
+        private readonly IConfiguration _configuration;
         public static readonly ILoggerFactory DbLoggerFactory = LoggerFactory.Create(builder => { builder.AddConsole(); });
+
+
+        public ApplicationModule(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         /// <inheritdoc />
         public void Configure(IServiceCollection services)
@@ -37,6 +45,9 @@ namespace Fabricdot.WebApi
                     .EnableSensitiveDataLogging();
 #endif
             });
+
+            services.AddScoped<ISqlConnectionFactory, SqlConnectionFactory>(provider =>
+                new SqlConnectionFactory(_configuration.GetConnectionString("Default")));
 
             #endregion database
 
