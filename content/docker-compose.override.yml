@@ -8,6 +8,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
+      - "ConnectionStrings__Default=Database_Connection_String"
+      - "ConnectionStrings__Log=Server=Database_Connection_String"
     ports:
       - "5200:80"
     volumes:

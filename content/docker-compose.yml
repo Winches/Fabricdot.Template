@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   webapi:
-    image: ${DOCKER_REGISTRY}/fabricdotwebapi
+    image: ${DOCKER_REGISTRY}/fabricdot-webapi:${TAG:-latest}
     volumes: 
       - data:/app/wwwroot:rw
       - data:/app/logs:rw
