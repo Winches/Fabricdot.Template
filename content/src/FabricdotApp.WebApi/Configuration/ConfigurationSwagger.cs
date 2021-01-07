@@ -15,12 +15,12 @@ namespace FabricdotApp.WebApi.Configuration
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Fabricdot API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "FabricdotApp API", Version = "v1" });
                 c.DocumentFilter<LowercaseDocumentFilter>();
                 c.EnableAnnotations();
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    Description = @"JWT Authorization:'Bearer 12345abcdef'",
+                    Description = @"JWT Authorization:'Bearer token'",
                     Name = "Authorization",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey,
