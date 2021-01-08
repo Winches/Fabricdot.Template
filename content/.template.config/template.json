@@ -1,10 +1,10 @@
 {
   "$schema": "http://json.schemastore.org/template",
   "author": "cyan",
-  "classifications": [ "WebAPI", "DDD","Fabricdot" ],
+  "classifications": [ "WebAPI", "DDD","Fabricdot",".NET" ],
   "identity": "Fabricdot.Template.CSharp",
   "groupIdentity":"Fabricdot.Template",
-  "name": "ASP.NET Core Web API with Fabricdot.Core",
+  "name": "ASP.NET Web API with Fabricdot.Core",
   "shortName": "fabricdotapi",
   "tags": {
     "language": "C#",
