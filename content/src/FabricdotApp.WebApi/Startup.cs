@@ -22,7 +22,7 @@ namespace FabricdotApp.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.RegisterModules(
-                new DomainModule(),
+                new InfrastructureModule(),
                 new ApplicationModule(Configuration));
         }
 
