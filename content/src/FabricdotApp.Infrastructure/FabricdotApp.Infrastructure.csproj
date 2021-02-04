@@ -5,13 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FabricdotApp.Common\FabricdotApp.Common.csproj" />
     <ProjectReference Include="..\FabricdotApp.Domain\FabricdotApp.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.78" />
     <PackageReference Include="Fabricdot.Infrastructure.Core" Version="0.2.0-alpha" />
-    <PackageReference Include="Fabricdot.Infrastructure.EntityFrameworkCore" Version="0.2.0-alpha" />
+    <PackageReference Include="Fabricdot.Infrastructure.EntityFrameworkCore" Version="0.2.1-alpha" />
   </ItemGroup>
 
 </Project>
