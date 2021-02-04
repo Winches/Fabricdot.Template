@@ -48,7 +48,7 @@ namespace FabricdotApp.WebApi
             });
 
             SqlMapperTypeHandlerConfiguration.AddTypeHandlers();
-            services.AddScoped<ISqlConnectionFactory, SqlConnectionFactory>(provider =>
+            services.AddScoped<ISqlConnectionFactory, SqlConnectionFactory>(_ =>
                 new SqlConnectionFactory(_configuration.GetConnectionString("Default")));
 
             #endregion database
