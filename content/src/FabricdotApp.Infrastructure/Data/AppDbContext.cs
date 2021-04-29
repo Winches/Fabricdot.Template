@@ -1,9 +1,10 @@
 ﻿using System.Reflection;
+using Fabricdot.Infrastructure.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace FabricdotApp.Infrastructure.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : DbContextBase
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {

@@ -11,8 +11,8 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.78" />
-    <PackageReference Include="Fabricdot.Infrastructure.Core" Version="0.2.0-alpha" />
-    <PackageReference Include="Fabricdot.Infrastructure.EntityFrameworkCore" Version="0.2.1-alpha" />
+    <PackageReference Include="Fabricdot.Infrastructure.Core" Version="0.3.2-alpha" />
+    <PackageReference Include="Fabricdot.Infrastructure.EntityFrameworkCore" Version="0.3.0-alpha" />
   </ItemGroup>
 
 </Project>

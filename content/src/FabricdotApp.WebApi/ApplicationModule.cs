@@ -2,10 +2,12 @@ using System;
 using Fabricdot.Domain.Core.SharedKernel;
 using Fabricdot.Infrastructure.Core.Data;
 using Fabricdot.Infrastructure.Core.DependencyInjection;
+using Fabricdot.Infrastructure.EntityFrameworkCore;
 using Fabricdot.WebApi.Core.Configuration;
 using FabricdotApp.Infrastructure.Data;
 using FabricdotApp.Infrastructure.Data.TypeHandlers;
 using FabricdotApp.WebApi.Configuration;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -50,7 +52,7 @@ namespace FabricdotApp.WebApi
             SqlMapperTypeHandlerConfiguration.AddTypeHandlers();
             services.AddScoped<ISqlConnectionFactory, SqlConnectionFactory>(_ =>
                 new SqlConnectionFactory(_configuration.GetConnectionString("Default")));
-
+            services.AddScoped<IUnitOfWork, EfUnitOfWork<AppDbContext>>();
             #endregion database
 
             #region api-doc
@@ -61,9 +63,7 @@ namespace FabricdotApp.WebApi
             #endregion
 
             SystemClock.Configure(DateTimeKind.Utc);
-
-            services.AddScoped<IEntityChangeTracker, EntityChangeTracker>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddSingleton<IContentTypeProvider, FileExtensionContentTypeProvider>();
             //add project services here.
         }
     }

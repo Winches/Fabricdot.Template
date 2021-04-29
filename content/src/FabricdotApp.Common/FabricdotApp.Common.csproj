@@ -4,8 +4,4 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Fabricdot.Common.Core" Version="0.2.0-alpha" />
-  </ItemGroup>
-
 </Project>

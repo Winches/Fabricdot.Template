@@ -8,4 +8,8 @@
     <Folder Include="Constants\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Fabricdot.Domain.Core" Version="0.3.2-alpha" />
+  </ItemGroup>
+
 </Project>
