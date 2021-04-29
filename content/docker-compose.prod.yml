@@ -6,7 +6,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:80
-      - "ConnectionStrings__Default=Database_Connection_String"
-      - "ConnectionStrings__Log=Server=Database_Connection_String"
+      - ConnectionStrings__Default=${CONNECTIONSTRINGS_DEFAULT}
+      - ConnectionStrings__Log=${CONNECTIONSTRINGS_LOG}
     ports:
-      - "5200:80"
+      - "${WEBAPI_PORT}:80"
