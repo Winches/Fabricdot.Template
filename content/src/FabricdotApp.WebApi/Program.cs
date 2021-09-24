@@ -7,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace FabricdotApp.WebApi
 {
-    public class Program
+    public static class Program
     {
         public static async Task Main(string[] args)
         {
@@ -21,7 +21,7 @@ namespace FabricdotApp.WebApi
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
             var host = Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+                .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>());
             host.AddModules();
             return host;
         }

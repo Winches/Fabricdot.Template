@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace FabricdotApp.Infrastructure
 {
-    public class InfrastructureModule : IModule
+    public class FabricdotAppInfrastructureModule : IModule
     {
         public void Configure(IServiceCollection services)
         {

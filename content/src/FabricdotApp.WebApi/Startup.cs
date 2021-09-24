@@ -1,4 +1,5 @@
 using Fabricdot.Infrastructure.Core.DependencyInjection;
+using Fabricdot.WebApi.Core.Uow;
 using FabricdotApp.Infrastructure;
 using FabricdotApp.WebApi.Configuration;
 using Microsoft.AspNetCore.Builder;
@@ -22,8 +23,8 @@ namespace FabricdotApp.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.RegisterModules(
-                new InfrastructureModule(),
-                new ApplicationModule(Configuration));
+                new FabricdotAppInfrastructureModule(),
+                new FabricdotAppApplicationModule(Configuration));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,7 +35,7 @@ namespace FabricdotApp.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseStaticFiles();
 
@@ -43,6 +44,8 @@ namespace FabricdotApp.WebApi
             app.UseAuthorization();
 
             app.UserSwagger();
+
+            app.UseUnitOfWork();
 
             app.UseEndpoints(endpoints =>
             {
