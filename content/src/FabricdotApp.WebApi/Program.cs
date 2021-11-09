@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using AspectCore.Extensions.DependencyInjection;
-using Fabricdot.WebApi.Core;
+using Fabricdot.WebApi;
 using FabricdotApp.Infrastructure.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;

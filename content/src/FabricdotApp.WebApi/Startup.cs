@@ -1,5 +1,4 @@
-using Fabricdot.Infrastructure.Core.DependencyInjection;
-using Fabricdot.WebApi.Core.Uow;
+using Fabricdot.Infrastructure.DependencyInjection;
 using FabricdotApp.Infrastructure;
 using FabricdotApp.WebApi.Configuration;
 using Microsoft.AspNetCore.Builder;
@@ -23,7 +22,7 @@ namespace FabricdotApp.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.RegisterModules(
-                new FabricdotAppInfrastructureModule(),
+                new FabricdotAppInfrastructureModule(Configuration),
                 new FabricdotAppApplicationModule(Configuration));
         }
 

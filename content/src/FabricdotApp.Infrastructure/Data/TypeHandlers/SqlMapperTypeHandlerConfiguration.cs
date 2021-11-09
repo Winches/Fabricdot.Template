@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Linq;
-using System.Reflection;
 using Dapper;
 using Fabricdot.Core.Reflection;
+using Fabricdot.Domain.ValueObjects;
 
 namespace FabricdotApp.Infrastructure.Data.TypeHandlers
 {
@@ -10,15 +9,14 @@ namespace FabricdotApp.Infrastructure.Data.TypeHandlers
     {
         public static void AddTypeHandlers()
         {
-            ReflectionHelper.FindTypes(typeof(SqlMapper.ITypeHandler), typeof(EnumerationTypeHandlerBase<>).Assembly)
+            //register enumeration handlers
+            var enumerationType = ReflectionHelper.FindTypes(typeof(Enumeration), AppDomain.CurrentDomain.GetAssemblies());
+            enumerationType
                 .ForEach(v =>
                 {
-                    var baseType = v.GetTopBaseType();
-                    if (baseType.GetGenericTypeDefinition() != typeof(SqlMapper.TypeHandler<>))
-                        return;
-
-                    var typeHandler = (SqlMapper.ITypeHandler)Activator.CreateInstance(v);
-                    SqlMapper.AddTypeHandler(baseType.GenericTypeArguments.Single(), typeHandler);
+                    var handlerType = typeof(EnumerationTypeHandler<>).MakeGenericType(v);
+                    var typeHandler = (SqlMapper.ITypeHandler)Activator.CreateInstance(handlerType);
+                    SqlMapper.AddTypeHandler(v, typeHandler);
                 });
         }
     }

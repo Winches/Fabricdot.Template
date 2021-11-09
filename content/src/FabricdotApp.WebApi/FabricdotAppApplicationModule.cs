@@ -1,8 +1,8 @@
 using System;
-using Fabricdot.Domain.Core.SharedKernel;
-using Fabricdot.Infrastructure.Core.Data;
-using Fabricdot.Infrastructure.Core.DependencyInjection;
-using Fabricdot.WebApi.Core.Configuration;
+using Fabricdot.Domain.SharedKernel;
+using Fabricdot.Infrastructure.Data;
+using Fabricdot.Infrastructure.DependencyInjection;
+using Fabricdot.WebApi.Configuration;
 using FabricdotApp.Infrastructure.Data;
 using FabricdotApp.Infrastructure.Data.TypeHandlers;
 using FabricdotApp.WebApi.Configuration;
@@ -15,8 +15,8 @@ namespace FabricdotApp.WebApi
 {
     public class FabricdotAppApplicationModule : IModule
     {
+        private static readonly ILoggerFactory _dbLoggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
         private readonly IConfiguration _configuration;
-        public static readonly ILoggerFactory DbLoggerFactory = LoggerFactory.Create(builder => { builder.AddConsole(); });
 
         public FabricdotAppApplicationModule(IConfiguration configuration)
         {
@@ -38,18 +38,17 @@ namespace FabricdotApp.WebApi
 
             #region database
 
-            services.AddDbContext<AppDbContext>(opts =>
+            var connectionString = _configuration.GetConnectionString("Default");
+            services.AddEfDbContext<AppDbContext>(opts =>
             {
                 //todo:use database
-#if DEBUG
-                opts.UseLoggerFactory(DbLoggerFactory)
-                    .EnableSensitiveDataLogging();
-#endif
+
+                opts.UseLoggerFactory(_dbLoggerFactory);
+                //opts.EnableSensitiveDataLogging();
             });
 
             SqlMapperTypeHandlerConfiguration.AddTypeHandlers();
-            services.AddScoped<ISqlConnectionFactory, SqlConnectionFactory>(_ =>
-                new SqlConnectionFactory(_configuration.GetConnectionString("Default")));
+            services.AddScoped<ISqlConnectionFactory, DefaultSqlConnectionFactory>(_ => new DefaultSqlConnectionFactory(connectionString));
 
             #endregion database
 

@@ -1,10 +1,10 @@
 ﻿using System.Data;
 using Dapper;
-using Fabricdot.Domain.Core.ValueObjects;
+using Fabricdot.Domain.ValueObjects;
 
 namespace FabricdotApp.Infrastructure.Data.TypeHandlers
 {
-    public abstract class EnumerationTypeHandlerBase<T> : SqlMapper.TypeHandler<T> where T : Enumeration
+    internal class EnumerationTypeHandler<T> : SqlMapper.TypeHandler<T> where T : Enumeration
     {
         /// <inheritdoc />
         public override void SetValue(IDbDataParameter parameter, T value)
