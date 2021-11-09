@@ -45,8 +45,6 @@ namespace FabricdotApp.WebApi
 
             app.UserSwagger();
 
-            app.UseUnitOfWork();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
