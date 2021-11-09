@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using AspectCore.Extensions.DependencyInjection;
 using Fabricdot.WebApi.Core;
 using FabricdotApp.Infrastructure.Data;
 using Microsoft.AspNetCore.Hosting;
@@ -21,7 +22,8 @@ namespace FabricdotApp.WebApi
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
             var host = Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>());
+                .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>())
+                .UseServiceProviderFactory(new DynamicProxyServiceProviderFactory());
             host.AddModules();
             return host;
         }
