@@ -21,11 +21,9 @@ namespace FabricdotApp.WebApi
 
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
-            var host = Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>())
-                .UseServiceProviderFactory(new DynamicProxyServiceProviderFactory());
-            host.AddModules();
-            return host;
+            return Host.CreateDefaultBuilder(args)
+                       .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>())
+                       .UseServiceProviderFactory(new DynamicProxyServiceProviderFactory());
         }
     }
 }
