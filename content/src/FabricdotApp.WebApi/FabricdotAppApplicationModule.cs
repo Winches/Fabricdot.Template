@@ -1,4 +1,5 @@
 using System;
+using System.Text.Json;
 using Fabricdot.Domain.SharedKernel;
 using Fabricdot.Infrastructure.Data;
 using Fabricdot.Infrastructure.DependencyInjection;
@@ -29,10 +30,8 @@ namespace FabricdotApp.WebApi
             #region endpoint
 
             services.AddControllers(opts => opts.AddActionFilters())
-                .ConfigureApiBehaviorOptions(opts =>
-                {
-                    opts.SuppressModelStateInvalidFilter = true;
-                });
+                    .ConfigureApiBehaviorOptions(opts => opts.SuppressModelStateInvalidFilter = true)
+                    .AddJsonOptions(opts => opts.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter()));
 
             #endregion endpoint
 
