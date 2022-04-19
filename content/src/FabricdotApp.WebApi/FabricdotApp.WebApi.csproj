@@ -17,10 +17,10 @@
 
   <ItemGroup>
     <Folder Include="Endpoints\" />
-    <Folder Include="Commands\" />
-    <Folder Include="EventHandlers\" />
+    <Folder Include="Application\Commands\" />
+    <Folder Include="Application\EventHandlers\" />
     <Folder Include="Services\" />
-    <Folder Include="Queries\" />
+    <Folder Include="Application\Queries\" />
   </ItemGroup>
 
   <ItemGroup>
