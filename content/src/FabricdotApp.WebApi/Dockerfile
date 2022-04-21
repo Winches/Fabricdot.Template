@@ -11,6 +11,7 @@ COPY ["src/FabricdotApp.WebApi/FabricdotApp.WebApi.csproj", "src/FabricdotApp.We
 COPY ["src/FabricdotApp.Infrastructure/FabricdotApp.Infrastructure.csproj", "src/FabricdotApp.Infrastructure/"]
 COPY ["src/FabricdotApp.Domain/FabricdotApp.Domain.csproj", "src/FabricdotApp.Domain/"]
 COPY ["src/FabricdotApp.Domain.Shared/FabricdotApp.Domain.Shared.csproj", "src/FabricdotApp.Domain.Shared/"]
+COPY ["src/FabricdotApp.Common/FabricdotApp.Common.csproj", "src/FabricdotApp.Common/"]
 RUN dotnet restore "src/FabricdotApp.WebApi/FabricdotApp.WebApi.csproj"
 COPY . .
 WORKDIR "/src/src/FabricdotApp.WebApi"
