@@ -1,8 +1,9 @@
 ﻿using System.Threading.Tasks;
+using Fabricdot.Core.DependencyInjection;
 
 namespace FabricdotApp.Infrastructure.Data
 {
-    internal class DataBuilder
+    internal class DataBuilder : ITransientDependency
     {
         public Task SeedAsync()
         {

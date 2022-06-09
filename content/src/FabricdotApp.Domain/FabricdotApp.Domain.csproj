@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fabricdot.Domain" Version="0.5.2-alpha" />
+    <PackageReference Include="Fabricdot.Domain" Version="0.6.0" />
   </ItemGroup>
 
 </Project>

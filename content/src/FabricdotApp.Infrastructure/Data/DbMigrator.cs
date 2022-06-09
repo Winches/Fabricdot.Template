@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Fabricdot.Core.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FabricdotApp.Infrastructure.Data
 {
-    public sealed class DbMigrator
+    public sealed class DbMigrator : ITransientDependency
     {
         private readonly IServiceProvider _serviceProvider;
 

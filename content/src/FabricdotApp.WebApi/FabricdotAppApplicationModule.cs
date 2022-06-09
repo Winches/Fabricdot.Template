@@ -1,32 +1,25 @@
 using System;
 using System.Text.Json;
+using System.Threading.Tasks;
+using Fabricdot.Core.Boot;
+using Fabricdot.Core.Modularity;
 using Fabricdot.Domain.SharedKernel;
-using Fabricdot.Infrastructure.Data;
-using Fabricdot.Infrastructure.DependencyInjection;
 using Fabricdot.WebApi.Configuration;
-using FabricdotApp.Infrastructure.Data;
-using FabricdotApp.Infrastructure.Data.TypeHandlers;
 using FabricdotApp.WebApi.Configuration;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.StaticFiles;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
 
 namespace FabricdotApp.WebApi
 {
-    public class FabricdotAppApplicationModule : IModule
+    public class FabricdotAppApplicationModule : ModuleBase
     {
-        private static readonly ILoggerFactory _dbLoggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
-        private readonly IConfiguration _configuration;
-
-        public FabricdotAppApplicationModule(IConfiguration configuration)
+        public override void ConfigureServices(ConfigureServiceContext context)
         {
-            _configuration = configuration;
-        }
+            var services = context.Services;
 
-        /// <inheritdoc />
-        public void Configure(IServiceCollection services)
-        {
             #region endpoint
 
             services.AddControllers(opts => opts.AddActionFilters())
@@ -34,22 +27,6 @@ namespace FabricdotApp.WebApi
                     .AddJsonOptions(opts => opts.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter()));
 
             #endregion endpoint
-
-            #region database
-
-            var connectionString = _configuration.GetConnectionString("Default");
-            services.AddEfDbContext<AppDbContext>(opts =>
-            {
-                //todo:use database
-
-                opts.UseLoggerFactory(_dbLoggerFactory);
-                //opts.EnableSensitiveDataLogging();
-            });
-
-            SqlMapperTypeHandlerConfiguration.AddTypeHandlers();
-            services.AddScoped<ISqlConnectionFactory, DefaultSqlConnectionFactory>(_ => new DefaultSqlConnectionFactory(connectionString));
-
-            #endregion database
 
             #region api-doc
 
@@ -60,7 +37,30 @@ namespace FabricdotApp.WebApi
 
             SystemClock.Configure(DateTimeKind.Utc);
             services.AddSingleton<IContentTypeProvider, FileExtensionContentTypeProvider>();
-            //add project services here.
+        }
+
+        public override Task OnStartingAsync(ApplicationStartingContext context)
+        {
+            var services = context.ServiceProvider;
+            var app = services.GetApplicationBuilder();
+            var env = services.GetRequiredService<IWebHostEnvironment>();
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UserSwagger();
+
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
+
+            return Task.CompletedTask;
         }
     }
 }
