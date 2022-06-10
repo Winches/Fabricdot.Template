@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+
+    <PackageType>Template</PackageType>
+    <PackageVersion>0.6</PackageVersion>
+    <PackageId>Fabricdot.Dotnet.Template</PackageId>
+    <Title>Fabricdot Template</Title>
+    <Authors>Cyan</Authors>
+    <Description>>Templates use to build web application with Fabricdot.Core</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>dotnet-new;templates;fabricdot;aspnetcore</PackageTags>
+    <PackageProjectUrl>https://github.com/Winches/Fabricdot.Template</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Winches/Fabricdot.Template</RepositoryUrl>
+
+    <IncludeContentInPack>true</IncludeContentInPack>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <ContentTargetFolders>content</ContentTargetFolders>
+    <NoWarn>$(NoWarn);NU5128</NoWarn>
+    <NoDefaultExcludes>true</NoDefaultExcludes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="templates\**\*" Exclude="**\**\bin\**;templates\**\obj\**;**\**\.vs\**;**\.vscode\**\*" />
+    <Compile Remove="**\*" />
+  </ItemGroup>
+
+</Project>

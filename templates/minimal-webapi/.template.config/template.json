@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "cyan",
+  "classifications": [ "WebAPI", "DDD","Fabricdot",".NET" ],
+  "identity": "Fabricdot.MinimalWebApi.CSharp",
+  "groupIdentity":"Fabricdot.MinimalWebApi",
+  "name": "ASP.NET Web Minimal API with Fabricdot.Core",
+  "shortName": "fabricdot-miniapi",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "ProjectName",
+  "preferNameDirectory": true,
+  "symbols":{
+    "WebApiPort": {
+      "type": "generated",
+      "generator": "port",
+      "replaces": "${WebApiPort}",
+      "parameters": {
+        "low": 5000,
+        "high": 6000,
+        "fallback": 5000
+      }
+    },
+    "UserSecretsId": {
+        "type": "generated",
+        "generator": "guid",
+        "replaces": "${UserSecretsId}",
+        "parameters": {
+          "defaultFormat":"D"
+        }
+    },
+    "AppName":{
+      "type": "derived",
+      "valueSource": "name", 
+      "valueTransform": "TrimSpecialCharacter",
+      "replaces": "AppName",
+      "fileRename": "AppName"
+    },
+    "appname":{
+      "type": "generated",
+      "generator": "casing",
+      "parameters": {
+        "source":"AppName",
+        "toLower": true
+      },
+      "replaces":"appname",
+      "fileRename": "appname"
+    },
+    "includetest": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "true"
+    }
+  },
+  "forms": {
+    "TrimSpecialCharacter":{
+      "identifier": "replace",
+      "pattern": "[^0-9a-zA-Z]+",
+      "replacement": ""
+    }
+  },
+  "sources":[{
+    "modifiers": [{
+      "condition": "(!includetest)",
+      "exclude": ["tests/**/*"]
+      }
+    ]
+  }]
+}
