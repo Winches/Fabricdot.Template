@@ -4,7 +4,7 @@ using ProjectName.Infrastructure.Security.Authentication;
 
 namespace ProjectName.WebApi.Application.Commands.Authentication
 {
-    public class RefreshTokenCommand : CommandBase<JwtTokenValue>
+    public class RefreshTokenCommand : Command<JwtTokenValue>
     {
         [Required]
         public string AccessToken { get; set; }

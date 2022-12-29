@@ -6,7 +6,7 @@ namespace ProjectName.WebApi.Application.Commands.Permissions
     /// <summary>
     ///     Update all permissions of subject
     /// </summary>
-    public class UpdateGrantedPermissionsCommand : CommandBase
+    public class UpdateGrantedPermissionsCommand : Command
     {
         public string GrantType { get; }
 

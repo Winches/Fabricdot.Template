@@ -7,7 +7,7 @@ namespace ProjectName.WebApi.Application.Queries.Permissions
     /// <summary>
     ///     List groups of permission
     /// </summary>
-    public class GetPermissionGroupsQuery : IQuery<ICollection<PermissionGroup>>
+    public class GetPermissionGroupsQuery : Query<ICollection<PermissionGroup>>
     {
     }
 }

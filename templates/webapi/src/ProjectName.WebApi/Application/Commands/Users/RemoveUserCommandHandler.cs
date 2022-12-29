@@ -8,7 +8,7 @@ using ProjectName.Domain.Aggregates.UserAggregate;
 
 namespace ProjectName.WebApi.Application.Commands.Users
 {
-    internal class RemoveUserCommandHandler : ICommandHandler<RemoveUserCommand>
+    internal class RemoveUserCommandHandler : CommandHandler<RemoveUserCommand>
     {
         private readonly UserManager<User> _userManager;
 
@@ -17,11 +17,11 @@ namespace ProjectName.WebApi.Application.Commands.Users
             _userManager = userManager;
         }
 
-        public async Task<Unit> Handle(
-            RemoveUserCommand request,
+        public override async Task<Unit> ExecuteAsync(
+            RemoveUserCommand command,
             CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByIdAsync(request.UserId.ToString());
+            var user = await _userManager.FindByIdAsync(command.UserId.ToString());
             Guard.Against.Null(user, nameof(user));
 
             var res = await _userManager.DeleteAsync(user);

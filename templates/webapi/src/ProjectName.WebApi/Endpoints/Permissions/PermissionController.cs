@@ -23,7 +23,7 @@ namespace ProjectName.WebApi.Endpoints.Permissions
         [HttpGet("list")]
         public async Task<ICollection<PermissionGroup>> ListAsync()
         {
-            return await Sender.Send(new GetPermissionGroupsQuery());
+            return await QueryProcessor.ProcessAsync(new GetPermissionGroupsQuery());
         }
     }
 }

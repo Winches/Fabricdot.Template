@@ -8,7 +8,7 @@ using ProjectName.Domain.Aggregates.UserAggregate;
 
 namespace ProjectName.WebApi.Application.Commands.Users
 {
-    internal class UpdateUserCommandHandler : ICommandHandler<UpdateUserCommand>
+    internal class UpdateUserCommandHandler : CommandHandler<UpdateUserCommand>
     {
         private readonly UserManager<User> _userManager;
 
@@ -17,17 +17,17 @@ namespace ProjectName.WebApi.Application.Commands.Users
             _userManager = userManager;
         }
 
-        public async Task<Unit> Handle(
-            UpdateUserCommand request,
+        public override async Task<Unit> ExecuteAsync(
+            UpdateUserCommand command,
             CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByIdAsync(request.UserId.ToString());
+            var user = await _userManager.FindByIdAsync(command.UserId.ToString());
             Guard.Against.Null(user, nameof(user));
 
-            user.GivenName = request.GivenName.Trim();
-            user.Surname = request.Surname?.Trim();
-            await _userManager.SetEmailAsync(user, request.Email);
-            await _userManager.SetPhoneNumberAsync(user, request.PhoneNumber);
+            user.GivenName = command.GivenName.Trim();
+            user.Surname = command.Surname?.Trim();
+            await _userManager.SetEmailAsync(user, command.Email);
+            await _userManager.SetPhoneNumberAsync(user, command.PhoneNumber);
             var res = await _userManager.UpdateAsync(user);
             res.EnsureSuccess();
 

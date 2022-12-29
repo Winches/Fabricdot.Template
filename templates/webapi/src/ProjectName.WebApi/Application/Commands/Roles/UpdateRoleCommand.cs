@@ -5,7 +5,7 @@ using Fabricdot.Infrastructure.Commands;
 
 namespace ProjectName.WebApi.Application.Commands.Roles
 {
-    public class UpdateRoleCommand : CommandBase
+    public class UpdateRoleCommand : Command
     {
         [Required]
         public Guid RoleId { get; set; }

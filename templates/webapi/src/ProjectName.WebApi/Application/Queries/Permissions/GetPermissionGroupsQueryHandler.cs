@@ -7,7 +7,7 @@ using Fabricdot.Infrastructure.Queries;
 
 namespace ProjectName.WebApi.Application.Queries.Permissions
 {
-    internal class GetPermissionGroupsQueryHandler : IQueryHandler<GetPermissionGroupsQuery, ICollection<PermissionGroup>>
+    internal class GetPermissionGroupsQueryHandler : QueryHandler<GetPermissionGroupsQuery, ICollection<PermissionGroup>>
     {
         private readonly IPermissionManager _permissionManager;
 
@@ -16,8 +16,8 @@ namespace ProjectName.WebApi.Application.Queries.Permissions
             _permissionManager = permissionManager;
         }
 
-        public async Task<ICollection<PermissionGroup>> Handle(
-            GetPermissionGroupsQuery request,
+        public override async Task<ICollection<PermissionGroup>> ExecuteAsync(
+            GetPermissionGroupsQuery query,
             CancellationToken cancellationToken)
         {
             var groups = await _permissionManager.ListGroupsAsync();

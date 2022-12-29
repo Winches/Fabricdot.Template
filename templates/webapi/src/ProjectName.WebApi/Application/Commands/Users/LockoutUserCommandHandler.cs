@@ -10,7 +10,7 @@ using ProjectName.Domain.Shared.Constants;
 
 namespace ProjectName.WebApi.Application.Commands.Users
 {
-    internal class LockoutUserCommandHandler : ICommandHandler<LockoutUserCommand>
+    internal class LockoutUserCommandHandler : CommandHandler<LockoutUserCommand>
     {
         private readonly UserManager<User> _userManager;
 
@@ -19,16 +19,16 @@ namespace ProjectName.WebApi.Application.Commands.Users
             _userManager = userManager;
         }
 
-        public async Task<Unit> Handle(
-            LockoutUserCommand request,
+        public override async Task<Unit> ExecuteAsync(
+            LockoutUserCommand command,
             CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByIdAsync(request.UserId.ToString());
+            var user = await _userManager.FindByIdAsync(command.UserId.ToString());
             Guard.Against.Null(user, nameof(user));
 
             var res = await _userManager.SetLockoutEnabledAsync(user, true);
             res.EnsureSuccess();
-            var lockoutEnd = request.LockoutEnd ?? DateTimeOffset.UtcNow.AddDays(UserConstants.DefaultLockDays);
+            var lockoutEnd = command.LockoutEnd ?? DateTimeOffset.UtcNow.AddDays(UserConstants.DefaultLockDays);
             res = await _userManager.SetLockoutEndDateAsync(user, lockoutEnd);
             res.EnsureSuccess();
 

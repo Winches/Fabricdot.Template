@@ -7,7 +7,7 @@ namespace ProjectName.WebApi.Application.Queries.Permissions
     /// <summary>
     ///     List all permissions of user
     /// </summary>
-    public class GetUserPermissionsQuery : IQuery<ICollection<string>>
+    public class GetUserPermissionsQuery : Query<ICollection<string>>
     {
         public Guid UserId { get; }
 

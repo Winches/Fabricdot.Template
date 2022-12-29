@@ -28,7 +28,7 @@ namespace ProjectName.WebApi.Endpoints.Permissions
         [HttpGet("{id}/permissions")]
         public async Task<ICollection<string>> ListAsync([FromRoute] Guid id)
         {
-            return await Sender.Send(new GetUserPermissionsQuery(id));
+            return await QueryProcessor.ProcessAsync(new GetUserPermissionsQuery(id));
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace ProjectName.WebApi.Endpoints.Permissions
         public async Task<ICollection<string>> ListCurrentAsync()
         {
             var userId = Guid.Parse(CurrentUser.Id!);
-            return await Sender.Send(new GetUserPermissionsQuery(userId));
+            return await QueryProcessor.ProcessAsync(new GetUserPermissionsQuery(userId));
         }
     }
 }

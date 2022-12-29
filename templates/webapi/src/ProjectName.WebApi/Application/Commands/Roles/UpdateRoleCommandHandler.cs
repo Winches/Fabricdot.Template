@@ -9,7 +9,7 @@ using ProjectName.Domain.Aggregates.RoleAggregate;
 
 namespace ProjectName.WebApi.Application.Commands.Roles
 {
-    internal class UpdateRoleCommandHandler : ICommandHandler<UpdateRoleCommand>
+    internal class UpdateRoleCommandHandler : CommandHandler<UpdateRoleCommand>
     {
         private readonly RoleManager<Role> _roleManager;
         private readonly IRoleRepository<Role> _roleRepository;
@@ -22,15 +22,15 @@ namespace ProjectName.WebApi.Application.Commands.Roles
             _roleRepository = roleRepository;
         }
 
-        public async Task<Unit> Handle(
-            UpdateRoleCommand request,
+        public override async Task<Unit> ExecuteAsync(
+            UpdateRoleCommand command,
             CancellationToken cancellationToken)
         {
-            var role = await _roleRepository.GetDetailsByIdAsync(request.RoleId);
+            var role = await _roleRepository.GetDetailsByIdAsync(command.RoleId);
             Guard.Against.Null(role, nameof(role));
 
-            await _roleManager.SetRoleNameAsync(role, request.Name);
-            role.Description = request.Description;
+            await _roleManager.SetRoleNameAsync(role, command.Name);
+            role.Description = command.Description;
             role.IsDefault = role.IsDefault;
             await _roleManager.UpdateAsync(role);
 

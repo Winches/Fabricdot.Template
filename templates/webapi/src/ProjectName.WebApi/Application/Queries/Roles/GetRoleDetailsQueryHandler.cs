@@ -7,7 +7,7 @@ using ProjectName.Domain.Aggregates.RoleAggregate;
 
 namespace ProjectName.WebApi.Application.Queries.Roles
 {
-    internal class GetRoleDetailsQueryHandler : IQueryHandler<GetRoleDetailsQuery, RoleDetailsDto>
+    internal class GetRoleDetailsQueryHandler : QueryHandler<GetRoleDetailsQuery, RoleDetailsDto>
     {
         private readonly IRoleRepository<Role> _roleRepository;
         private readonly IMapper _mapper;
@@ -20,11 +20,11 @@ namespace ProjectName.WebApi.Application.Queries.Roles
             _mapper = mapper;
         }
 
-        public async Task<RoleDetailsDto> Handle(
-            GetRoleDetailsQuery request,
+        public override async Task<RoleDetailsDto> ExecuteAsync(
+            GetRoleDetailsQuery query,
             CancellationToken cancellationToken)
         {
-            var role = await _roleRepository.GetDetailsByIdAsync(request.RoleId);
+            var role = await _roleRepository.GetDetailsByIdAsync(query.RoleId, cancellationToken);
             return _mapper.Map<RoleDetailsDto>(role);
         }
     }

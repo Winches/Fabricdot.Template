@@ -3,7 +3,7 @@ using Fabricdot.Infrastructure.Commands;
 
 namespace ProjectName.WebApi.Application.Commands.Users
 {
-    public class ChangeUserStatusCommand : CommandBase
+    public class ChangeUserStatusCommand : Command
     {
         public Guid UserId { get; }
 

@@ -7,7 +7,7 @@ namespace ProjectName.WebApi.Application.Queries.Permissions
     /// <summary>
     ///     List permission grant
     /// </summary>
-    public class GetPermissionGrantsQuery : IQuery<ICollection<string>>
+    public class GetPermissionGrantsQuery : Query<ICollection<string>>
     {
         public string GrantType { get; }
 

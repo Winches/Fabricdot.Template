@@ -4,7 +4,7 @@ using Fabricdot.Infrastructure.Commands;
 
 namespace ProjectName.WebApi.Application.Commands.Users
 {
-    public class RemoveUserRolesCommand : CommandBase
+    public class RemoveUserRolesCommand : Command
     {
         public Guid UserId { get; }
 

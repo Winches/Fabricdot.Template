@@ -8,7 +8,7 @@ using ProjectName.Domain.Aggregates.UserAggregate;
 
 namespace ProjectName.WebApi.Application.Commands.Users
 {
-    internal class UpdateUserRolesCommandHandler : ICommandHandler<UpdateUserRolesCommand>
+    internal class UpdateUserRolesCommandHandler : CommandHandler<UpdateUserRolesCommand>
     {
         private readonly UserManager<User> _userManager;
 
@@ -17,15 +17,15 @@ namespace ProjectName.WebApi.Application.Commands.Users
             _userManager = userManager;
         }
 
-        public async Task<Unit> Handle(
-            UpdateUserRolesCommand request,
+        public override async Task<Unit> ExecuteAsync(
+            UpdateUserRolesCommand command,
             CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByIdAsync(request.UserId.ToString());
+            var user = await _userManager.FindByIdAsync(command.UserId.ToString());
             Guard.Against.Null(user, nameof(user));
 
             user.ClearRoles();
-            var res = await _userManager.AddToRolesAsync(user, request.RoleNames);
+            var res = await _userManager.AddToRolesAsync(user, command.RoleNames);
             res.EnsureSuccess();
 
             return Unit.Value;

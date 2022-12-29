@@ -10,7 +10,7 @@ using ProjectName.Domain.Aggregates.RoleAggregate;
 
 namespace ProjectName.WebApi.Application.Queries.Roles
 {
-    internal class GetRolePagedListQueryHandler : IQueryHandler<GetRolePagedListQuery, PagedResultDto<RoleDto>>
+    internal class GetRolePagedListQueryHandler : QueryHandler<GetRolePagedListQuery, PagedResultDto<RoleDto>>
     {
         private readonly IReadOnlyRepository<Role> _roleRepository;
         private readonly IMapper _mapper;
@@ -23,14 +23,14 @@ namespace ProjectName.WebApi.Application.Queries.Roles
             _mapper = mapper;
         }
 
-        public async Task<PagedResultDto<RoleDto>> Handle(
-            GetRolePagedListQuery request,
+        public override async Task<PagedResultDto<RoleDto>> ExecuteAsync(
+            GetRolePagedListQuery query,
             CancellationToken cancellationToken)
         {
             var specification = new RolePagedListSpecification<Role>(
-                request.Index,
-                request.Size,
-                request.Filter);
+                query.Index,
+                query.Size,
+                query.Filter);
             var list = await _roleRepository.ListAsync(specification, cancellationToken);
             var total = await _roleRepository.CountAsync(specification, cancellationToken);
 

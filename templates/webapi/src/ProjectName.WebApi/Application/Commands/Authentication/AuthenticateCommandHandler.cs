@@ -9,7 +9,7 @@ using ProjectName.Infrastructure.Security.Authentication;
 
 namespace ProjectName.WebApi.Application.Commands.Authentication
 {
-    internal class AuthenticateCommandHandler : ICommandHandler<AuthenticateCommand, JwtTokenValue>
+    internal class AuthenticateCommandHandler : CommandHandler<AuthenticateCommand, JwtTokenValue>
     {
         private readonly IDataFilter _dataFilter;
         private readonly SignInManager<User> _signInManager;
@@ -25,12 +25,12 @@ namespace ProjectName.WebApi.Application.Commands.Authentication
             _jwtSecurityTokenService = jwtSecurityTokenService;
         }
 
-        public async Task<JwtTokenValue> Handle(
-            AuthenticateCommand request,
+        public override async Task<JwtTokenValue> ExecuteAsync(
+            AuthenticateCommand command,
             CancellationToken cancellationToken)
         {
-            var user = await FindUserAsync(request);
-            var signInResult = await _signInManager.PasswordSignInAsync(user, request.Password, false, true);
+            var user = await FindUserAsync(command);
+            var signInResult = await _signInManager.PasswordSignInAsync(user, command.Password, false, true);
             if (!signInResult.Succeeded)
             {
                 if (signInResult.IsNotAllowed)//confirm email or phone number

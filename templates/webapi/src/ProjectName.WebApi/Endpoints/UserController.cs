@@ -28,7 +28,7 @@ namespace ProjectName.WebApi.Endpoints
         [HttpPost]
         public async Task<Guid> CreateAsync([FromBody] CreateUserCommand command)
         {
-            return await Sender.Send(command);
+            return await CommandBus.PublishAsync(command);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace ProjectName.WebApi.Endpoints
         [HttpPut]
         public async Task UpdateAsync([FromBody] UpdateUserCommand command)
         {
-            await Sender.Send(command);
+            await CommandBus.PublishAsync(command);
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace ProjectName.WebApi.Endpoints
         [HttpDelete("{id}")]
         public async Task DeleteAsync([FromRoute] Guid id)
         {
-            await Sender.Send(new RemoveUserCommand(id));
+            await CommandBus.PublishAsync(new RemoveUserCommand(id));
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace ProjectName.WebApi.Endpoints
         public async Task ChangePasswordAsync([FromBody] ChangePasswordDto request)
         {
             var userId = Guid.Parse(CurrentUser.Id!);
-            await Sender.Send(new ChangePasswordCommand(userId, request));
+            await CommandBus.PublishAsync(new ChangePasswordCommand(userId, request));
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace ProjectName.WebApi.Endpoints
         [HttpPut("{id}/enable")]
         public async Task EnableAsync([FromRoute] Guid id)
         {
-            await Sender.Send(new ChangeUserStatusCommand(id, true));
+            await CommandBus.PublishAsync(new ChangeUserStatusCommand(id, true));
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace ProjectName.WebApi.Endpoints
         [HttpPut("{id}/disable")]
         public async Task DisableAsync([FromRoute] Guid id)
         {
-            await Sender.Send(new ChangeUserStatusCommand(id, false));
+            await CommandBus.PublishAsync(new ChangeUserStatusCommand(id, false));
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace ProjectName.WebApi.Endpoints
         [HttpPut("lockout")]
         public async Task LockoutAsync([FromBody] LockoutUserCommand command)
         {
-            await Sender.Send(command);
+            await CommandBus.PublishAsync(command);
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace ProjectName.WebApi.Endpoints
         [HttpPut("unlock")]
         public async Task UnlockAsync([FromBody] UnlockUserCommand command)
         {
-            await Sender.Send(command);
+            await CommandBus.PublishAsync(command);
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace ProjectName.WebApi.Endpoints
         [HttpPut("password/default")]
         public async Task SetDefaultPasswordAsync([FromBody] SetDefaultPasswordCommand command)
         {
-            await Sender.Send(command);
+            await CommandBus.PublishAsync(command);
         }
 
         /// <summary>
@@ -144,7 +144,7 @@ namespace ProjectName.WebApi.Endpoints
         [HttpGet("{id}")]
         public async Task<UserDetailsDto> GetAsync([FromRoute] Guid id)
         {
-            return await Sender.Send(new GetUserDetailsQuery(id));
+            return await QueryProcessor.ProcessAsync(new GetUserDetailsQuery(id));
         }
 
         /// <summary>
@@ -156,7 +156,7 @@ namespace ProjectName.WebApi.Endpoints
         public async Task<UserDetailsDto> GetCurrentAsync()
         {
             var userId = Guid.Parse(CurrentUser.Id!);
-            var ret = await Sender.Send(new GetUserDetailsQuery(userId));
+            var ret = await QueryProcessor.ProcessAsync(new GetUserDetailsQuery(userId));
             return ret!;
         }
 
@@ -170,7 +170,7 @@ namespace ProjectName.WebApi.Endpoints
         [Authorize(ApplicationPermissions.Users.Read)]
         public async Task<PagedResultDto<UserDetailsDto>> GetPagedListAsync([FromQuery] GetUserPagedListQuery query)
         {
-            return await Sender.Send(query);
+            return await QueryProcessor.ProcessAsync(query);
         }
     }
 }

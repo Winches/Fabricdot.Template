@@ -4,7 +4,7 @@ using Fabricdot.Infrastructure.Commands;
 
 namespace ProjectName.WebApi.Application.Commands.Users
 {
-    public class ChangePasswordCommand : CommandBase
+    public class ChangePasswordCommand : Command
     {
         public Guid UserId { get; }
 

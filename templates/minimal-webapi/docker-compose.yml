@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   webapi:
-    image: ${DOCKER_REGISTRY}appname-webapi:${TAG:-latest}
+    image: ${DOCKER_REGISTRY}/appname-webapi:${TAG:-latest}
     build:
       context: .
       dockerfile: src/ProjectName.WebApi/Dockerfile

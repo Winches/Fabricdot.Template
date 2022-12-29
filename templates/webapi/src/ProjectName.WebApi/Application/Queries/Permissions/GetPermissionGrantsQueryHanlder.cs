@@ -8,7 +8,7 @@ using Fabricdot.PermissionGranting;
 
 namespace ProjectName.WebApi.Application.Queries.Permissions
 {
-    internal class GetPermissionGrantsQueryHanlder : IQueryHandler<GetPermissionGrantsQuery, ICollection<string>>
+    internal class GetPermissionGrantsQueryHanlder : QueryHandler<GetPermissionGrantsQuery, ICollection<string>>
     {
         private readonly IPermissionGrantingManager _permissionGrantingManager;
 
@@ -17,12 +17,12 @@ namespace ProjectName.WebApi.Application.Queries.Permissions
             _permissionGrantingManager = permissionGrantingManager;
         }
 
-        public async Task<ICollection<string>> Handle(
-            GetPermissionGrantsQuery request,
+        public override async Task<ICollection<string>> ExecuteAsync(
+            GetPermissionGrantsQuery query,
             CancellationToken cancellationToken)
         {
             var list = await _permissionGrantingManager.ListAsync(
-                new GrantSubject(request.GrantType, request.Subject),
+                new GrantSubject(query.GrantType, query.Subject),
                 cancellationToken);
 
             return list.Select(v => v.Object).ToArray();

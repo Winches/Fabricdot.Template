@@ -7,7 +7,7 @@ using MediatR;
 
 namespace ProjectName.WebApi.Application.Commands.Permissions
 {
-    internal class UpdateGrantedPermissionsCommandHandler : ICommandHandler<UpdateGrantedPermissionsCommand>
+    internal class UpdateGrantedPermissionsCommandHandler : CommandHandler<UpdateGrantedPermissionsCommand>
     {
         private readonly IPermissionGrantingManager _permissionGrantingManager;
 
@@ -16,13 +16,13 @@ namespace ProjectName.WebApi.Application.Commands.Permissions
             _permissionGrantingManager = permissionGrantingManager;
         }
 
-        public async Task<Unit> Handle(
-            UpdateGrantedPermissionsCommand request,
+        public override async Task<Unit> ExecuteAsync(
+            UpdateGrantedPermissionsCommand command,
             CancellationToken cancellationToken)
         {
             await _permissionGrantingManager.SetAsync(
-                new GrantSubject(request.GrantType, request.Subject),
-                request.Objects,
+                new GrantSubject(command.GrantType, command.Subject),
+                command.Objects,
                 cancellationToken);
 
             return Unit.Value;

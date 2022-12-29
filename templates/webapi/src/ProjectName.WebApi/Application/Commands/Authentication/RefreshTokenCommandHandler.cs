@@ -5,7 +5,7 @@ using ProjectName.Infrastructure.Security.Authentication;
 
 namespace ProjectName.WebApi.Application.Commands.Authentication
 {
-    internal class RefreshTokenCommandHandler : ICommandHandler<RefreshTokenCommand, JwtTokenValue>
+    internal class RefreshTokenCommandHandler : CommandHandler<RefreshTokenCommand, JwtTokenValue>
     {
         private readonly IJwtSecurityTokenService _jwtSecurityTokenService;
 
@@ -14,13 +14,13 @@ namespace ProjectName.WebApi.Application.Commands.Authentication
             _jwtSecurityTokenService = jwtSecurityTokenService;
         }
 
-        public async Task<JwtTokenValue> Handle(
-            RefreshTokenCommand request,
+        public override async Task<JwtTokenValue> ExecuteAsync(
+            RefreshTokenCommand command,
             CancellationToken cancellationToken)
         {
             return await _jwtSecurityTokenService.RefreshTokenAsync(
-                request.AccessToken,
-                request.RefreshToken);
+                command.AccessToken,
+                command.RefreshToken);
         }
     }
 }

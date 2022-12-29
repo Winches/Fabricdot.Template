@@ -12,7 +12,7 @@ using ProjectName.WebApi.Application.Queries.Roles;
 
 namespace ProjectName.WebApi.Application.Queries.Users
 {
-    internal class GetUserRolesQueryHandler : IQueryHandler<GetUserRolesQuery, ICollection<RoleDto>>
+    internal class GetUserRolesQueryHandler : QueryHandler<GetUserRolesQuery, ICollection<RoleDto>>
     {
         private readonly IUserRepository<User> _userRepository;
         private readonly IRoleRepository<Role> _roleRepository;
@@ -28,11 +28,11 @@ namespace ProjectName.WebApi.Application.Queries.Users
             _mapper = mapper;
         }
 
-        public async Task<ICollection<RoleDto>> Handle(
-            GetUserRolesQuery request,
+        public override async Task<ICollection<RoleDto>> ExecuteAsync(
+            GetUserRolesQuery query,
             CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetDetailsByIdAsync(request.UserId, cancellationToken);
+            var user = await _userRepository.GetDetailsByIdAsync(query.UserId, cancellationToken);
             Guard.Against.Null(user, nameof(user));
             var roles = await _roleRepository.ListAsync(user.Roles.Select(v => v.RoleId).ToArray());
             return _mapper.Map<ICollection<RoleDto>>(roles);

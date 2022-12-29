@@ -15,7 +15,7 @@ using ProjectName.WebApi.Application.Queries.Roles;
 
 namespace ProjectName.WebApi.Application.Queries.Users
 {
-    internal class GetUserPagedListQueryHandler : IQueryHandler<GetUserPagedListQuery, PagedResultDto<UserDetailsDto>>
+    internal class GetUserPagedListQueryHandler : QueryHandler<GetUserPagedListQuery, PagedResultDto<UserDetailsDto>>
     {
         private readonly IReadOnlyRepository<User> _userRepository;
         private readonly IRoleRepository<Role> _roleRepository;
@@ -31,16 +31,16 @@ namespace ProjectName.WebApi.Application.Queries.Users
             _mapper = mapper;
         }
 
-        public async Task<PagedResultDto<UserDetailsDto>> Handle(
-            GetUserPagedListQuery request,
+        public override async Task<PagedResultDto<UserDetailsDto>> ExecuteAsync(
+            GetUserPagedListQuery query,
             CancellationToken cancellationToken)
         {
             var specification = new UserPagedListSpecification<User>(
-                request.Index,
-                request.Size,
-                request.Filter,
-                request.IsActive,
-                request.IsLockedOut,
+                query.Index,
+                query.Size,
+                query.Filter,
+                query.IsActive,
+                query.IsLockedOut,
                 includeDetails: true);
             var users = await _userRepository.ListAsync(specification, cancellationToken);
             var total = await _userRepository.CountAsync(specification, cancellationToken);

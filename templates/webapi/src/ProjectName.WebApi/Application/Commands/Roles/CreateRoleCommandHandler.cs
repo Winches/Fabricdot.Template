@@ -8,7 +8,7 @@ using ProjectName.Domain.Aggregates.RoleAggregate;
 
 namespace ProjectName.WebApi.Application.Commands.Roles
 {
-    internal class CreateRoleCommandHandler : ICommandHandler<CreateRoleCommand, Guid>
+    internal class CreateRoleCommandHandler : CommandHandler<CreateRoleCommand, Guid>
     {
         private readonly RoleManager<Role> _roleManager;
         private readonly IGuidGenerator _guidGenerator;
@@ -21,14 +21,14 @@ namespace ProjectName.WebApi.Application.Commands.Roles
             _guidGenerator = guidGenerator;
         }
 
-        public async Task<Guid> Handle(
-            CreateRoleCommand request,
+        public override async Task<Guid> ExecuteAsync(
+            CreateRoleCommand command,
             CancellationToken cancellationToken)
         {
-            var role = new Role(_guidGenerator.Create(), request.Name, false)
+            var role = new Role(_guidGenerator.Create(), command.Name, false)
             {
-                Description = request.Description,
-                IsDefault = request.IsDefault
+                Description = command.Description,
+                IsDefault = command.IsDefault
             };
             await _roleManager.CreateAsync(role);
             return role.Id;

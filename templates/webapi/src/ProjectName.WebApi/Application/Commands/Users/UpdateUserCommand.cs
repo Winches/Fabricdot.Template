@@ -5,7 +5,7 @@ using Fabricdot.Infrastructure.Commands;
 
 namespace ProjectName.WebApi.Application.Commands.Users
 {
-    public class UpdateUserCommand : CommandBase
+    public class UpdateUserCommand : Command
     {
         [Required]
         public Guid UserId { get; set; }

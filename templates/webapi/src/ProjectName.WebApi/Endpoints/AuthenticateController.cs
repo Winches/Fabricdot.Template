@@ -23,7 +23,7 @@ namespace ProjectName.WebApi.Endpoints
         [HttpPost]
         public async Task<JwtTokenValue> AuthenticateAsync([FromBody] AuthenticateCommand command)
         {
-            return await Sender.Send(command);
+            return await CommandBus.PublishAsync(command);
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace ProjectName.WebApi.Endpoints
         [HttpPost("refresh-token")]
         public async Task<JwtTokenValue> RefreshTokenAsync([FromBody] RefreshTokenCommand command)
         {
-            return await Sender.Send(command);
+            return await CommandBus.PublishAsync(command);
         }
     }
 }

@@ -5,7 +5,6 @@ using Fabricdot.Core.Boot;
 using Fabricdot.Core.Modularity;
 using Fabricdot.Domain.SharedKernel;
 using Fabricdot.WebApi;
-using Fabricdot.WebApi.Configuration;
 using Fabricdot.WebApi.Tracing;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,20 +25,10 @@ namespace ProjectName.WebApi
         {
             var services = context.Services;
 
-            #region endpoint
-
-            services.AddControllers(opts => opts.AddActionFilters())
-                    .ConfigureApiBehaviorOptions(opts => opts.SuppressModelStateInvalidFilter = true)
+            services.AddControllers()
                     .AddJsonOptions(opts => opts.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter()));
 
-            #endregion endpoint
-
-            #region api-doc
-
-            //swagger
             services.AddSwagger();
-
-            #endregion api-doc
 
             SystemClock.Configure(DateTimeKind.Utc);
             services.AddSingleton<IContentTypeProvider, FileExtensionContentTypeProvider>();

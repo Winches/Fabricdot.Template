@@ -5,7 +5,7 @@ using Fabricdot.Infrastructure.Commands;
 
 namespace ProjectName.WebApi.Application.Commands.Roles
 {
-    public class CreateRoleCommand : CommandBase<Guid>
+    public class CreateRoleCommand : Command<Guid>
     {
         [Required]
         [MaxLength(IdentityRoleConstant.NameLength)]

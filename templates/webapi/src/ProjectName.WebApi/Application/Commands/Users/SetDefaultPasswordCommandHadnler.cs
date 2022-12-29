@@ -9,7 +9,7 @@ using ProjectName.Domain.Shared.Constants;
 
 namespace ProjectName.WebApi.Application.Commands.Users
 {
-    internal class SetDefaultPasswordCommandHadnler : ICommandHandler<SetDefaultPasswordCommand>
+    internal class SetDefaultPasswordCommandHadnler : CommandHandler<SetDefaultPasswordCommand>
     {
         private readonly UserManager<User> _userManager;
 
@@ -18,11 +18,11 @@ namespace ProjectName.WebApi.Application.Commands.Users
             _userManager = userManager;
         }
 
-        public async Task<Unit> Handle(
-            SetDefaultPasswordCommand request,
+        public override async Task<Unit> ExecuteAsync(
+            SetDefaultPasswordCommand command,
             CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByIdAsync(request.UserId.ToString());
+            var user = await _userManager.FindByIdAsync(command.UserId.ToString());
             Guard.Against.Null(user, nameof(user));
             var res = await _userManager.RemovePasswordAsync(user);
             res.EnsureSuccess();

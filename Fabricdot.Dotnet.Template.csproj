@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
 
     <PackageType>Template</PackageType>
-    <PackageVersion>0.6</PackageVersion>
+    <PackageVersion>0.7.0</PackageVersion>
     <PackageId>Fabricdot.Dotnet.Template</PackageId>
     <Title>Fabricdot Template</Title>
     <Authors>Cyan</Authors>

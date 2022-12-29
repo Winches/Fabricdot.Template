@@ -25,7 +25,7 @@ namespace ProjectName.WebApi.Endpoints
         [HttpPost]
         public async Task<Guid> CreateAsync([FromBody] CreateRoleCommand command)
         {
-            return await Sender.Send(command);
+            return await CommandBus.PublishAsync(command);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace ProjectName.WebApi.Endpoints
         [HttpPut]
         public async Task UpdateAsync([FromBody] UpdateRoleCommand command)
         {
-            await Sender.Send(command);
+            await CommandBus.PublishAsync(command);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace ProjectName.WebApi.Endpoints
         [HttpDelete("{id}")]
         public async Task DeleteAsync([FromRoute] Guid id)
         {
-            await Sender.Send(new RemoveRoleCommand(id));
+            await CommandBus.PublishAsync(new RemoveRoleCommand(id));
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace ProjectName.WebApi.Endpoints
         [Authorize(ApplicationPermissions.Roles.Read)]
         public async Task<RoleDetailsDto> GetAsync([FromRoute] Guid id)
         {
-            return await Sender.Send(new GetRoleDetailsQuery(id));
+            return await QueryProcessor.ProcessAsync(new GetRoleDetailsQuery(id));
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace ProjectName.WebApi.Endpoints
         [Authorize(ApplicationPermissions.Roles.Read)]
         public async Task<PagedResultDto<RoleDto>> GetPagedListAsync([FromQuery] GetRolePagedListQuery query)
         {
-            return await Sender.Send(query);
+            return await QueryProcessor.ProcessAsync(query);
         }
     }
 }

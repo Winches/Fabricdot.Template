@@ -10,7 +10,7 @@ using ProjectName.Domain.Aggregates.UserAggregate;
 
 namespace ProjectName.WebApi.Application.Queries.Permissions
 {
-    internal class GetUserPermissionsQueryHandler : IQueryHandler<GetUserPermissionsQuery, ICollection<string>>
+    internal class GetUserPermissionsQueryHandler : QueryHandler<GetUserPermissionsQuery, ICollection<string>>
     {
         private readonly IPermissionGrantingManager _permissionGrantingManager;
         private readonly IUserClaimsPrincipalFactory<User> _userClaimsPrincipalFactory;
@@ -26,11 +26,11 @@ namespace ProjectName.WebApi.Application.Queries.Permissions
             _userManager = userManager;
         }
 
-        public async Task<ICollection<string>> Handle(
-            GetUserPermissionsQuery request,
+        public override async Task<ICollection<string>> ExecuteAsync(
+            GetUserPermissionsQuery query,
             CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByIdAsync(request.UserId.ToString());
+            var user = await _userManager.FindByIdAsync(query.UserId.ToString());
             if (user == null)
                 return Array.Empty<string>();
 

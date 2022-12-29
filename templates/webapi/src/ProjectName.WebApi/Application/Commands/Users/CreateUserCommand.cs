@@ -6,7 +6,7 @@ using ProjectName.Domain.Shared.Constants;
 
 namespace ProjectName.WebApi.Application.Commands.Users
 {
-    public class CreateUserCommand : CommandBase<Guid>
+    public class CreateUserCommand : Command<Guid>
     {
         [Required]
         [MaxLength(IdentityUserConstant.UserNameLength)]

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,12 +10,12 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.123" />
-    <PackageReference Include="Fabricdot.Identity" Version="0.6.0" />
-    <PackageReference Include="Fabricdot.Infrastructure" Version="0.6.0" />
-    <PackageReference Include="Fabricdot.Infrastructure.EntityFrameworkCore" Version="0.6.0" />
-    <PackageReference Include="Fabricdot.PermissionGranting" Version="0.6.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.19.0" />
+    <PackageReference Include="Fabricdot.Identity" Version="0.7.0" />
+    <PackageReference Include="Fabricdot.Infrastructure" Version="0.7.0" />
+    <PackageReference Include="Fabricdot.Infrastructure.EntityFrameworkCore" Version="0.7.0" />
+    <PackageReference Include="Fabricdot.PermissionGranting" Version="0.7.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.1" />
   </ItemGroup>
 
 </Project>

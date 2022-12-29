@@ -12,7 +12,7 @@ using ProjectName.Domain.Specifications;
 
 namespace ProjectName.WebApi.Application.Commands.Users
 {
-    internal class CreateUserCommandHandler : ICommandHandler<CreateUserCommand, Guid>
+    internal class CreateUserCommandHandler : CommandHandler<CreateUserCommand, Guid>
     {
         private readonly IGuidGenerator _guidGenerator;
         private readonly UserManager<User> _userManager;
@@ -31,17 +31,17 @@ namespace ProjectName.WebApi.Application.Commands.Users
             _roleRepository = roleRepository;
         }
 
-        public async Task<Guid> Handle(
-            CreateUserCommand request,
+        public override async Task<Guid> ExecuteAsync(
+            CreateUserCommand command,
             CancellationToken cancellationToken)
         {
             var user = new User(
                 _guidGenerator.Create(),
-                request.UserName,
-                request.GivenName.Trim(),
-                request.Surname?.Trim(),
-                request.Email);
-            user.ChangePhoneNumber(request.PhoneNumber);
+                command.UserName,
+                command.GivenName.Trim(),
+                command.Surname?.Trim(),
+                command.Email);
+            user.ChangePhoneNumber(command.PhoneNumber);
             await _userService.EnsurePhoneNumberIsUniqueAsync(
                 user,
                 cancellationToken);
@@ -49,7 +49,7 @@ namespace ProjectName.WebApi.Application.Commands.Users
             // add default roles
             var roles = await _roleRepository.ListAsync(new RoleFilterSpec(true), cancellationToken);
             roles.ForEach(v => user.AddRole(v.Id));
-            var res = await _userManager.CreateAsync(user, request.Password);
+            var res = await _userManager.CreateAsync(user, command.Password);
             res.EnsureSuccess();
             return user.Id;
         }

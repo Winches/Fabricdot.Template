@@ -31,7 +31,11 @@ namespace ProjectName.Infrastructure
                 //TODO:use database provider.
 
                 opts.UseLoggerFactory(_dbLoggerFactory);
-                //opts.EnableSensitiveDataLogging();
+//-:cnd:noEmit
+#if DEBUG
+                opts.EnableSensitiveDataLogging();
+#endif
+//+:cnd:noEmit
             });
 
             SqlMapperTypeHandlerConfiguration.AddTypeHandlers();

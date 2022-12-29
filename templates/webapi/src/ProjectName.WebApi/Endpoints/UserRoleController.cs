@@ -30,7 +30,7 @@ namespace ProjectName.WebApi.Endpoints
             [FromRoute] Guid id,
             [FromRoute] string role)
         {
-            await Sender.Send(new AddUserRolesCommand(id, new[] { role }));
+            await CommandBus.PublishAsync(new AddUserRolesCommand(id, new[] { role }));
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace ProjectName.WebApi.Endpoints
         [HttpPut("roles")]
         public async Task UpdateUserRolesAsync([FromBody] UpdateUserRolesCommand command)
         {
-            await Sender.Send(command);
+            await CommandBus.PublishAsync(command);
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace ProjectName.WebApi.Endpoints
             [FromRoute] Guid id,
             [FromRoute] string role)
         {
-            await Sender.Send(new RemoveUserRolesCommand(id, new[] { role }));
+            await CommandBus.PublishAsync(new RemoveUserRolesCommand(id, new[] { role }));
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace ProjectName.WebApi.Endpoints
         [HttpGet("{id}/roles")]
         public async Task<ICollection<RoleDto>> GetRolesAsync([FromRoute] Guid id)
         {
-            return await Sender.Send(new GetUserRolesQuery(id));
+            return await QueryProcessor.ProcessAsync(new GetUserRolesQuery(id));
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace ProjectName.WebApi.Endpoints
         public async Task<ICollection<RoleDto>> GetCurrentRolesAsync()
         {
             var userId = Guid.Parse(CurrentUser.Id!);
-            return await Sender.Send(new GetUserRolesQuery(userId));
+            return await QueryProcessor.ProcessAsync(new GetUserRolesQuery(userId));
         }
     }
 }

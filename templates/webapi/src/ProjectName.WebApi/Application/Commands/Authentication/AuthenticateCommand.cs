@@ -4,7 +4,7 @@ using ProjectName.Infrastructure.Security.Authentication;
 
 namespace ProjectName.WebApi.Application.Commands.Authentication
 {
-    public class AuthenticateCommand : CommandBase<JwtTokenValue>
+    public class AuthenticateCommand : Command<JwtTokenValue>
     {
         [Required]
         public string UserName { get; set; }

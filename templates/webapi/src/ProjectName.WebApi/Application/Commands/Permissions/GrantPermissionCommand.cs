@@ -6,7 +6,7 @@ namespace ProjectName.WebApi.Application.Commands.Permissions
     /// <summary>
     ///     Grant permission
     /// </summary>
-    public class GrantPermissionCommand : CommandBase
+    public class GrantPermissionCommand : Command
     {
         public string GrantType { get; }
 

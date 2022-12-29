@@ -3,7 +3,7 @@ using Fabricdot.Infrastructure.Commands;
 
 namespace ProjectName.WebApi.Application.Commands.Users
 {
-    public class RemoveUserCommand : CommandBase
+    public class RemoveUserCommand : Command
     {
         public Guid UserId { get; }
 

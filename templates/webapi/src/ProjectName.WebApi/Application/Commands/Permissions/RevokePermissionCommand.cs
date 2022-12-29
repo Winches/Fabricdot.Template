@@ -6,7 +6,7 @@ namespace ProjectName.WebApi.Application.Commands.Permissions
     /// <summary>
     ///     Revoke permission
     /// </summary>
-    public class RevokePermissionCommand : CommandBase
+    public class RevokePermissionCommand : Command
     {
         public string GrantType { get; }
 

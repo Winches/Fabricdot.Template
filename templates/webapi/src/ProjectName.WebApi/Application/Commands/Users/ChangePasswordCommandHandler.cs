@@ -8,7 +8,7 @@ using ProjectName.Domain.Aggregates.UserAggregate;
 
 namespace ProjectName.WebApi.Application.Commands.Users
 {
-    internal class ChangePasswordCommandHandler : ICommandHandler<ChangePasswordCommand>
+    internal class ChangePasswordCommandHandler : CommandHandler<ChangePasswordCommand>
     {
         private readonly UserManager<User> _userManager;
 
@@ -17,14 +17,14 @@ namespace ProjectName.WebApi.Application.Commands.Users
             _userManager = userManager;
         }
 
-        public async Task<Unit> Handle(
-            ChangePasswordCommand request,
+        public override async Task<Unit> ExecuteAsync(
+            ChangePasswordCommand command,
             CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByIdAsync(request.UserId.ToString());
+            var user = await _userManager.FindByIdAsync(command.UserId.ToString());
             Guard.Against.Null(user, nameof(user));
 
-            var data = request.Data;
+            var data = command.Data;
             var res = await _userManager.ChangePasswordAsync(
                 user,
                 data.CurrentPassword,

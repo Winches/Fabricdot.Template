@@ -33,7 +33,7 @@ namespace ProjectName.WebApi.Endpoints.Permissions
             [FromRoute] Guid id,
             [FromBody][Required] string permission)
         {
-            await Sender.Send(new GrantPermissionCommand(
+            await CommandBus.PublishAsync(new GrantPermissionCommand(
                 GrantType,
                 id.ToString(),
                 permission));
@@ -52,7 +52,7 @@ namespace ProjectName.WebApi.Endpoints.Permissions
             [FromRoute] Guid id,
             [FromBody][Required] string permission)
         {
-            await Sender.Send(new RevokePermissionCommand(
+            await CommandBus.PublishAsync(new RevokePermissionCommand(
                 GrantType,
                 id.ToString(),
                 permission));
@@ -71,7 +71,7 @@ namespace ProjectName.WebApi.Endpoints.Permissions
             [FromRoute] Guid id,
             [FromBody][Required] string[] permissions)
         {
-            await Sender.Send(new UpdateGrantedPermissionsCommand(
+            await CommandBus.PublishAsync(new UpdateGrantedPermissionsCommand(
                 GrantType,
                 id.ToString(),
                 permissions));
@@ -87,7 +87,7 @@ namespace ProjectName.WebApi.Endpoints.Permissions
         [HttpGet("{id}/permission/list")]
         public async Task<ICollection<string>> ListAsync([FromRoute] Guid id)
         {
-            return await Sender.Send(new GetPermissionGrantsQuery(GrantType, id.ToString()));
+            return await QueryProcessor.ProcessAsync(new GetPermissionGrantsQuery(GrantType, id.ToString()));
         }
     }
 }

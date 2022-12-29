@@ -32,7 +32,7 @@ namespace ProjectName.WebApi.Endpoints.Permissions
             [FromRoute] string role,
             [FromQuery][Required] string permission)
         {
-            await Sender.Send(new GrantPermissionCommand(
+            await CommandBus.PublishAsync(new GrantPermissionCommand(
                 GrantType,
                 role,
                 permission));
@@ -51,7 +51,7 @@ namespace ProjectName.WebApi.Endpoints.Permissions
             [FromRoute] string role,
             [FromQuery][Required] string permission)
         {
-            await Sender.Send(new RevokePermissionCommand(
+            await CommandBus.PublishAsync(new RevokePermissionCommand(
                 GrantType,
                 role,
                 permission));
@@ -70,7 +70,7 @@ namespace ProjectName.WebApi.Endpoints.Permissions
             [FromRoute] string role,
             [FromBody][Required] string[] permissions)
         {
-            await Sender.Send(new UpdateGrantedPermissionsCommand(
+            await CommandBus.PublishAsync(new UpdateGrantedPermissionsCommand(
                 GrantType,
                 role,
                 permissions));
@@ -86,7 +86,7 @@ namespace ProjectName.WebApi.Endpoints.Permissions
         [HttpGet("{role}/permission/list")]
         public async Task<ICollection<string>> ListAsync([FromRoute] string role)
         {
-            return await Sender.Send(new GetPermissionGrantsQuery(GrantType, role));
+            return await QueryProcessor.ProcessAsync(new GetPermissionGrantsQuery(GrantType, role));
         }
     }
 }

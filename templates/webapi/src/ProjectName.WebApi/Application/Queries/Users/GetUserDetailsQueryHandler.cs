@@ -11,7 +11,7 @@ using ProjectName.WebApi.Application.Queries.Roles;
 
 namespace ProjectName.WebApi.Application.Queries.Users
 {
-    internal class GetUserDetailsQueryHandler : IQueryHandler<GetUserDetailsQuery, UserDetailsDto>
+    internal class GetUserDetailsQueryHandler : QueryHandler<GetUserDetailsQuery, UserDetailsDto>
     {
         private readonly IUserRepository<User> _userRepository;
         private readonly IRoleRepository<Role> _roleRepository;
@@ -27,11 +27,11 @@ namespace ProjectName.WebApi.Application.Queries.Users
             _mapper = mapper;
         }
 
-        public async Task<UserDetailsDto> Handle(
-            GetUserDetailsQuery request,
+        public override async Task<UserDetailsDto> ExecuteAsync(
+            GetUserDetailsQuery query,
             CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetDetailsByIdAsync(request.UserId, cancellationToken);
+            var user = await _userRepository.GetDetailsByIdAsync(query.UserId, cancellationToken);
             if (user == null)
                 return null;
             var roleIds = user.Roles.Select(v => v.RoleId)

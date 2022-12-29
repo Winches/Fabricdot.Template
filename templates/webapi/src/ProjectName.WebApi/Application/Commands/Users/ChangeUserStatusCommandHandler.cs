@@ -8,7 +8,7 @@ using ProjectName.Domain.Aggregates.UserAggregate;
 
 namespace ProjectName.WebApi.Application.Commands.Users
 {
-    internal class ChangeUserStatusCommandHandler : ICommandHandler<ChangeUserStatusCommand>
+    internal class ChangeUserStatusCommandHandler : CommandHandler<ChangeUserStatusCommand>
     {
         private readonly UserManager<User> _userManager;
 
@@ -17,14 +17,14 @@ namespace ProjectName.WebApi.Application.Commands.Users
             _userManager = userManager;
         }
 
-        public async Task<Unit> Handle(
-            ChangeUserStatusCommand request,
+        public override async Task<Unit> ExecuteAsync(
+            ChangeUserStatusCommand command,
             CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByIdAsync(request.UserId.ToString());
+            var user = await _userManager.FindByIdAsync(command.UserId.ToString());
             Guard.Against.Null(user, nameof(user));
 
-            if (request.IsActive)
+            if (command.IsActive)
                 user.Enable();
             else
                 user.Disable();

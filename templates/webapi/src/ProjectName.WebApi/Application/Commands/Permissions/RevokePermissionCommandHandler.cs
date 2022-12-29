@@ -7,7 +7,7 @@ using MediatR;
 
 namespace ProjectName.WebApi.Application.Commands.Permissions
 {
-    internal class RevokePermissionCommandHandler : ICommandHandler<RevokePermissionCommand>
+    internal class RevokePermissionCommandHandler : CommandHandler<RevokePermissionCommand>
     {
         private readonly IPermissionGrantingManager _permissionGrantingManager;
 
@@ -16,13 +16,13 @@ namespace ProjectName.WebApi.Application.Commands.Permissions
             _permissionGrantingManager = permissionGrantingManager;
         }
 
-        public async Task<Unit> Handle(
-            RevokePermissionCommand request,
+        public override async Task<Unit> ExecuteAsync(
+            RevokePermissionCommand command,
             CancellationToken cancellationToken)
         {
             await _permissionGrantingManager.RevokeAsync(
-                new GrantSubject(request.GrantType, request.Subject),
-                request.Object,
+                new GrantSubject(command.GrantType, command.Subject),
+                command.Object,
                 cancellationToken);
             return Unit.Value;
         }
