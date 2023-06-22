@@ -1,4 +1,3 @@
-using Fabricdot.WebApi.Swagger;
 using Microsoft.OpenApi.Models;
 using ProjectName.WebApi.Configuration;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -11,8 +10,18 @@ public static class SwaggerConfiguration
     {
         services.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProjectName API", Version = "v1" });
-            c.DocumentFilter<LowercaseDocumentFilter>();
+            c.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Version = "v1",
+                Title = "ProjectName API",
+                Description = "An ASP.NET Core Web API for managing ProjectName items",
+                License = new OpenApiLicense
+                {
+                    Name = "MIT License",
+                    Url = new Uri("https://opensource.org/license/mit")
+                }
+            });
+
             c.SchemaFilter<EnumerationSchemaFilter>();
             c.EnableAnnotations();
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -48,9 +57,9 @@ public static class SwaggerConfiguration
         return services;
     }
 
-    public static IApplicationBuilder UserSwagger(this IApplicationBuilder app)
+    public static IApplicationBuilder UseSwagger(this IApplicationBuilder app)
     {
-        app.UseSwagger();
+        SwaggerBuilderExtensions.UseSwagger(app);
 
         // swagger endpoint.
         app.UseSwaggerUI(c => c.SwaggerEndpoint("v1/swagger.json", "API V1"));

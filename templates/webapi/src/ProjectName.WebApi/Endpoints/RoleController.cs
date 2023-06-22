@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Net.Mime;
 using Fabricdot.WebApi.Endpoint;
 using Fabricdot.WebApi.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -11,6 +12,7 @@ using ProjectName.WebApi.Authorization;
 namespace ProjectName.WebApi.Endpoints;
 
 [DefaultAuthorize]
+[Produces(MediaTypeNames.Application.Json)]
 public class RoleController : EndPointBase
 {
     /// <summary>
@@ -20,6 +22,7 @@ public class RoleController : EndPointBase
     /// <returns></returns>
     [Description("create role")]
     [Authorize(ApplicationPermissions.Roles.Create)]
+    [Consumes(MediaTypeNames.Application.Json)]
     [HttpPost]
     public async Task<Guid> CreateAsync([FromBody] CreateRoleCommand command)
     {
@@ -33,6 +36,7 @@ public class RoleController : EndPointBase
     /// <returns></returns>
     [Description("update role")]
     [Authorize(ApplicationPermissions.Roles.Update)]
+    [Consumes(MediaTypeNames.Application.Json)]
     [HttpPut]
     public async Task UpdateAsync([FromBody] UpdateRoleCommand command)
     {
@@ -58,8 +62,8 @@ public class RoleController : EndPointBase
     /// <param name="id"></param>
     /// <returns></returns>
     [Description("get role details")]
-    [HttpGet("{id}")]
     [Authorize(ApplicationPermissions.Roles.Read)]
+    [HttpGet("{id}")]
     public async Task<RoleDetailsDto> GetAsync([FromRoute] Guid id)
     {
         return await QueryProcessor.ProcessAsync(new GetRoleDetailsQuery(id));
@@ -71,8 +75,8 @@ public class RoleController : EndPointBase
     /// <param name="query"></param>
     /// <returns></returns>
     [Description("get role paged list")]
-    [HttpGet("paged-list")]
     [Authorize(ApplicationPermissions.Roles.Read)]
+    [HttpGet("paged-list")]
     public async Task<PagedResultDto<RoleDto>> GetPagedListAsync([FromQuery] GetRolePagedListQuery query)
     {
         return await QueryProcessor.ProcessAsync(query);

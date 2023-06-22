@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Net.Mime;
 using Fabricdot.WebApi.Endpoint;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ using ProjectName.WebApi.Authorization;
 namespace ProjectName.WebApi.Endpoints;
 
 [DefaultAuthorize]
+[Produces(MediaTypeNames.Application.Json)]
 [Route("api/user")]
 public class UserRoleController : EndPointBase
 {
@@ -37,6 +39,7 @@ public class UserRoleController : EndPointBase
     /// <returns></returns>
     [Description("update roles of user")]
     [Authorize(ApplicationPermissions.Users.ManageRole)]
+    [Consumes(MediaTypeNames.Application.Json)]
     [HttpPut("roles")]
     public async Task UpdateUserRolesAsync([FromBody] UpdateUserRolesCommand command)
     {

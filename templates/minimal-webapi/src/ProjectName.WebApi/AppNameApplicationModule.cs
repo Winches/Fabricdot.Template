@@ -22,6 +22,12 @@ public class AppNameApplicationModule : ModuleBase
         services.AddControllers()
                 .AddJsonOptions(opts => opts.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter()));
 
+        services.Configure<RouteOptions>(options =>
+        {
+            options.LowercaseUrls = true;
+            options.LowercaseQueryStrings = true;
+        });
+
         services.AddSwagger();
 
         SystemClock.Configure(DateTimeKind.Utc);
@@ -47,9 +53,24 @@ public class AppNameApplicationModule : ModuleBase
 
         app.UseAuthorization();
 
-        app.UserSwagger();
+        if (env.IsDevelopment())
+        {
+            app.UseSwagger();
+        }
 
-        app.UseEndpoints(endpoints => endpoints.MapControllers());
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllers();
+
+            if (env.IsDevelopment())
+            {
+                endpoints.MapGet("/", http =>
+                {
+                    http.Response.Redirect("swagger");
+                    return Task.CompletedTask;
+                });
+            }
+        });
 
         return Task.CompletedTask;
     }

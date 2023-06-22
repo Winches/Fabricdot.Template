@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Net.Mime;
 using Fabricdot.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,7 @@ namespace ProjectName.WebApi.Endpoints.Permissions;
 /// <summary>
 ///     User permission grant
 /// </summary>
+[Produces(MediaTypeNames.Application.Json)]
 [Route("api/user")]
 public class UserPermissionGrantsController : PermissionGrantsController
 {
@@ -25,6 +27,7 @@ public class UserPermissionGrantsController : PermissionGrantsController
     /// <returns></returns>
     [Description("grant permission to user")]
     [Authorize(ApplicationPermissions.Users.ManagePermission)]
+    [Consumes(MediaTypeNames.Application.Json)]
     [HttpPost("{id}/permission")]
     public virtual async Task CreateAsync(
         [FromRoute] Guid id,
@@ -44,6 +47,7 @@ public class UserPermissionGrantsController : PermissionGrantsController
     /// <returns></returns>
     [Description("revoke permission to user")]
     [Authorize(ApplicationPermissions.Users.ManagePermission)]
+    [Consumes(MediaTypeNames.Application.Json)]
     [HttpDelete("{id}/permission")]
     public virtual async Task DeleteAsync(
         [FromRoute] Guid id,
@@ -63,6 +67,7 @@ public class UserPermissionGrantsController : PermissionGrantsController
     /// <returns></returns>
     [Description("update permission to user")]
     [Authorize(ApplicationPermissions.Users.ManagePermission)]
+    [Consumes(MediaTypeNames.Application.Json)]
     [HttpPut("{id}/permission")]
     public virtual async Task UpdateAsync(
         [FromRoute] Guid id,

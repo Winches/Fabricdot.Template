@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Net.Mime;
 using Fabricdot.Authorization.Permissions;
 using Fabricdot.WebApi.Endpoint;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ namespace ProjectName.WebApi.Endpoints.Permissions;
 ///     Permission
 /// </summary>
 [DefaultAuthorize]
+[Produces(MediaTypeNames.Application.Json)]
 public class PermissionController : EndPointBase
 {
     /// <summary>

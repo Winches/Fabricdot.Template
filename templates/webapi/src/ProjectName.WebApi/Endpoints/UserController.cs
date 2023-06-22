@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Net.Mime;
 using Fabricdot.WebApi.Endpoint;
 using Fabricdot.WebApi.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -14,6 +15,7 @@ namespace ProjectName.WebApi.Endpoints;
 ///     User
 /// </summary>
 [DefaultAuthorize]
+[Produces(MediaTypeNames.Application.Json)]
 public class UserController : EndPointBase
 {
     /// <summary>
@@ -23,6 +25,7 @@ public class UserController : EndPointBase
     /// <returns></returns>
     [Description("create user")]
     [Authorize(ApplicationPermissions.Users.Create)]
+    [Consumes(MediaTypeNames.Application.Json)]
     [HttpPost]
     public async Task<Guid> CreateAsync([FromBody] CreateUserCommand command)
     {
@@ -36,6 +39,7 @@ public class UserController : EndPointBase
     /// <returns></returns>
     [Description("update user")]
     [Authorize(ApplicationPermissions.Users.Update)]
+    [Consumes(MediaTypeNames.Application.Json)]
     [HttpPut]
     public async Task UpdateAsync([FromBody] UpdateUserCommand command)
     {
@@ -61,6 +65,7 @@ public class UserController : EndPointBase
     /// <param name="request"></param>
     /// <returns></returns>
     [Description("change password")]
+    [Consumes(MediaTypeNames.Application.Json)]
     [HttpPost("current/password")]
     public async Task ChangePasswordAsync([FromBody] ChangePasswordDto request)
     {
@@ -101,6 +106,7 @@ public class UserController : EndPointBase
     /// <returns></returns>
     [Description("lock user")]
     [Authorize(ApplicationPermissions.Users.Update)]
+    [Consumes(MediaTypeNames.Application.Json)]
     [HttpPut("lockout")]
     public async Task LockoutAsync([FromBody] LockoutUserCommand command)
     {
@@ -114,6 +120,7 @@ public class UserController : EndPointBase
     /// <returns></returns>
     [Description("unlock user")]
     [Authorize(ApplicationPermissions.Users.Update)]
+    [Consumes(MediaTypeNames.Application.Json)]
     [HttpPut("unlock")]
     public async Task UnlockAsync([FromBody] UnlockUserCommand command)
     {
@@ -127,6 +134,7 @@ public class UserController : EndPointBase
     /// <returns></returns>
     [Description("reset password")]
     [Authorize(ApplicationPermissions.Users.Update)]
+    [Consumes(MediaTypeNames.Application.Json)]
     [HttpPut("password/default")]
     public async Task SetDefaultPasswordAsync([FromBody] SetDefaultPasswordCommand command)
     {
@@ -164,8 +172,8 @@ public class UserController : EndPointBase
     /// <param name="query"></param>
     /// <returns></returns>
     [Description("get user paged list")]
-    [HttpGet("paged-list")]
     [Authorize(ApplicationPermissions.Users.Read)]
+    [HttpGet("paged-list")]
     public async Task<PagedResultDto<UserDetailsDto>> GetPagedListAsync([FromQuery] GetUserPagedListQuery query)
     {
         return await QueryProcessor.ProcessAsync(query);

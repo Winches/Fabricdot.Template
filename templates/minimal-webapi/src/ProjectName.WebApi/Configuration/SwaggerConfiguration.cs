@@ -1,6 +1,5 @@
-using System.Reflection;
-using Fabricdot.WebApi.Swagger;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace ProjectName.WebApi.Configuration;
 
@@ -10,8 +9,18 @@ public static class SwaggerConfiguration
     {
         services.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProjectName API", Version = "v1" });
-            c.DocumentFilter<LowercaseDocumentFilter>();
+            c.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Version = "v1",
+                Title = "ProjectName API",
+                Description = "An ASP.NET Core Web API for managing ProjectName items",
+                License = new OpenApiLicense
+                {
+                    Name = "MIT License",
+                    Url = new Uri("https://opensource.org/license/mit")
+                }
+            });
+
             c.EnableAnnotations();
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
@@ -40,19 +49,44 @@ public static class SwaggerConfiguration
             }
             });
 
-            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-            c.IncludeXmlComments(xmlPath, true);
+            var xmlFile = new[] { "ProjectName.WebApi", "ProjectName.Domain", "ProjectName.Domain.Shared" };
+            c.IncludeXmlComments(xmlFile, true);
         });
         return services;
     }
 
-    public static IApplicationBuilder UserSwagger(this IApplicationBuilder app)
+    public static IApplicationBuilder UseSwagger(this IApplicationBuilder app)
     {
-        app.UseSwagger();
+        SwaggerBuilderExtensions.UseSwagger(app);
 
         // swagger endpoint.
         app.UseSwaggerUI(c => c.SwaggerEndpoint("v1/swagger.json", "API V1"));
         return app;
+    }
+
+    public static void IncludeXmlComments(
+    this SwaggerGenOptions options,
+    string[] filenames,
+    bool includeControllerXmlComments = false)
+    {
+        options.IncludeXmlComments(
+            AppContext.BaseDirectory,
+            filenames,
+            includeControllerXmlComments);
+    }
+
+    public static void IncludeXmlComments(
+        this SwaggerGenOptions options,
+        string basePath,
+        IEnumerable<string> filenames,
+        bool includeControllerXmlComments = false)
+    {
+        filenames.ForEach(filename =>
+        {
+            var xml = filename.EndsWith(".xml") ? filename : $"{filename}.xml";
+            var fullPath = Path.Combine(basePath, xml);
+            if (File.Exists(fullPath))
+                options.IncludeXmlComments(fullPath, includeControllerXmlComments);
+        });
     }
 }

@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Net.Mime;
 using Fabricdot.WebApi.Endpoint;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ namespace ProjectName.WebApi.Endpoints;
 /// <summary>
 ///     Authenticate
 /// </summary>
+[Produces(MediaTypeNames.Application.Json)]
 public class AuthenticateController : EndPointBase
 {
     /// <summary>
@@ -17,8 +19,9 @@ public class AuthenticateController : EndPointBase
     /// </summary>
     /// <param name="command"></param>
     /// <returns></returns>
-    [AllowAnonymous]
     [Description("authenticate")]
+    [AllowAnonymous]
+    [Consumes(MediaTypeNames.Application.Json)]
     [HttpPost]
     public async Task<JwtTokenValue> AuthenticateAsync([FromBody] AuthenticateCommand command)
     {
@@ -32,6 +35,7 @@ public class AuthenticateController : EndPointBase
     /// <returns></returns>
     [Description("refresh token")]
     [AllowAnonymous]
+    [Consumes(MediaTypeNames.Application.Json)]
     [HttpPost("refresh-token")]
     public async Task<JwtTokenValue> RefreshTokenAsync([FromBody] RefreshTokenCommand command)
     {

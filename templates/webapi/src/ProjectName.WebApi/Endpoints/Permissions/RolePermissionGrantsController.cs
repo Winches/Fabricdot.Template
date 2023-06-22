@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Net.Mime;
 using Fabricdot.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -63,6 +64,7 @@ public class RolePermissionGrantsController : PermissionGrantsController
     /// <returns></returns>
     [Description("update permissions to role")]
     [Authorize(ApplicationPermissions.Roles.ManagePermission)]
+    [Consumes(MediaTypeNames.Application.Json)]
     [HttpPut("{role}/permission")]
     public virtual async Task UpdateAsync(
         [FromRoute] string role,
