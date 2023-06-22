@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 
-namespace ProjectName.WebApi.Authorization
+namespace ProjectName.WebApi.Authorization;
+
+public class DefaultAuthorizeAttribute : AuthorizeAttribute
 {
-    public class DefaultAuthorizeAttribute : AuthorizeAttribute
+    public DefaultAuthorizeAttribute()
     {
-        public DefaultAuthorizeAttribute()
-        {
-            AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme;
-        }
+        AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme;
     }
 }

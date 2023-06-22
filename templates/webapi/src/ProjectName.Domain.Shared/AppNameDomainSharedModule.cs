@@ -1,11 +1,10 @@
-﻿using Fabricdot.Core.Modularity;
+using Fabricdot.Core.Modularity;
 using Fabricdot.Domain;
 
-namespace ProjectName.Domain.Shared
+namespace ProjectName.Domain.Shared;
+
+[Requires(typeof(FabricdotDomainModule))]
+[Exports]
+public class AppNameDomainSharedModule : ModuleBase
 {
-    [Requires(typeof(FabricdotDomainModule))]
-    [Exports]
-    public class AppNameDomainSharedModule : ModuleBase
-    {
-    }
 }

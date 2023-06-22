@@ -1,15 +1,13 @@
-﻿using System;
 using Fabricdot.Infrastructure.Queries;
 
-namespace ProjectName.WebApi.Application.Queries.Users
-{
-    public abstract class UserQueryBase<T> : Query<T>
-    {
-        public Guid UserId { get; }
+namespace ProjectName.WebApi.Application.Queries.Users;
 
-        protected UserQueryBase(Guid userId)
-        {
-            UserId = userId;
-        }
+public abstract class UserQueryBase<T> : Query<T>
+{
+    public Guid UserId { get; }
+
+    protected UserQueryBase(Guid userId)
+    {
+        UserId = userId;
     }
 }

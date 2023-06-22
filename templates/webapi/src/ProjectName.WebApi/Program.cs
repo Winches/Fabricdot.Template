@@ -1,9 +1,5 @@
-using System;
-using System.IO;
 using Fabricdot.Core.Boot;
 using Fabricdot.Infrastructure.DependencyInjection;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 using ProjectName.Infrastructure.Data;
 using ProjectName.WebApi;
 using Serilog;

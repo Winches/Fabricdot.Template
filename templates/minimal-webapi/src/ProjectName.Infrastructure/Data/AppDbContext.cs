@@ -1,19 +1,18 @@
-﻿using System.Reflection;
+using System.Reflection;
 using Fabricdot.Infrastructure.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace ProjectName.Infrastructure.Data
-{
-    public class AppDbContext : DbContextBase
-    {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-        {
-        }
+namespace ProjectName.Infrastructure.Data;
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-        }
+public class AppDbContext : DbContextBase
+{
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+    {
+    }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+        builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 }

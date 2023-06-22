@@ -1,34 +1,28 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
 using Ardalis.GuardClauses;
 using Fabricdot.Infrastructure.Commands;
-using MediatR;
 using Microsoft.AspNetCore.Identity;
 using ProjectName.Domain.Aggregates.UserAggregate;
 
-namespace ProjectName.WebApi.Application.Commands.Users
+namespace ProjectName.WebApi.Application.Commands.Users;
+
+internal class UpdateUserRolesCommandHandler : CommandHandler<UpdateUserRolesCommand>
 {
-    internal class UpdateUserRolesCommandHandler : CommandHandler<UpdateUserRolesCommand>
+    private readonly UserManager<User> _userManager;
+
+    public UpdateUserRolesCommandHandler(UserManager<User> userManager)
     {
-        private readonly UserManager<User> _userManager;
+        _userManager = userManager;
+    }
 
-        public UpdateUserRolesCommandHandler(UserManager<User> userManager)
-        {
-            _userManager = userManager;
-        }
+    public override async Task ExecuteAsync(
+        UpdateUserRolesCommand command,
+        CancellationToken cancellationToken)
+    {
+        var user = await _userManager.FindByIdAsync(command.UserId.ToString());
+        Guard.Against.Null(user, nameof(user));
 
-        public override async Task<Unit> ExecuteAsync(
-            UpdateUserRolesCommand command,
-            CancellationToken cancellationToken)
-        {
-            var user = await _userManager.FindByIdAsync(command.UserId.ToString());
-            Guard.Against.Null(user, nameof(user));
-
-            user.ClearRoles();
-            var res = await _userManager.AddToRolesAsync(user, command.RoleNames);
-            res.EnsureSuccess();
-
-            return Unit.Value;
-        }
+        user.ClearRoles();
+        var res = await _userManager.AddToRolesAsync(user, command.RoleNames);
+        res.EnsureSuccess();
     }
 }

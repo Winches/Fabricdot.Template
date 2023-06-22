@@ -1,29 +1,26 @@
-﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using Fabricdot.Authorization.Permissions;
 using Fabricdot.WebApi.Endpoint;
 using Microsoft.AspNetCore.Mvc;
 using ProjectName.WebApi.Application.Queries.Permissions;
 using ProjectName.WebApi.Authorization;
 
-namespace ProjectName.WebApi.Endpoints.Permissions
+namespace ProjectName.WebApi.Endpoints.Permissions;
+
+/// <summary>
+///     Permission
+/// </summary>
+[DefaultAuthorize]
+public class PermissionController : EndPointBase
 {
     /// <summary>
-    ///     Permission
+    ///     list
     /// </summary>
-    [DefaultAuthorize]
-    public class PermissionController : EndPointBase
+    /// <returns></returns>
+    [Description("list permission")]
+    [HttpGet("list")]
+    public async Task<ICollection<PermissionGroup>> ListAsync()
     {
-        /// <summary>
-        ///     list
-        /// </summary>
-        /// <returns></returns>
-        [Description("list permission")]
-        [HttpGet("list")]
-        public async Task<ICollection<PermissionGroup>> ListAsync()
-        {
-            return await QueryProcessor.ProcessAsync(new GetPermissionGroupsQuery());
-        }
+        return await QueryProcessor.ProcessAsync(new GetPermissionGroupsQuery());
     }
 }

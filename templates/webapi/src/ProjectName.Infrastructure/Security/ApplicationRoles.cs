@@ -1,7 +1,6 @@
-﻿namespace ProjectName.Infrastructure.Security
+namespace ProjectName.Infrastructure.Security;
+
+public static class ApplicationRoles
 {
-    public static class ApplicationRoles
-    {
-        public const string Administrator = nameof(Administrator);
-    }
+    public const string Administrator = nameof(Administrator);
 }

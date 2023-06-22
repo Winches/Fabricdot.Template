@@ -1,11 +1,8 @@
-﻿using System;
+namespace ProjectName.WebApi.Application.Queries.Users;
 
-namespace ProjectName.WebApi.Application.Queries.Users
+public class GetUserDetailsQuery : UserQueryBase<UserDetailsDto?>
 {
-    public class GetUserDetailsQuery : UserQueryBase<UserDetailsDto>
+    public GetUserDetailsQuery(Guid userId) : base(userId)
     {
-        public GetUserDetailsQuery(Guid userId) : base(userId)
-        {
-        }
     }
 }

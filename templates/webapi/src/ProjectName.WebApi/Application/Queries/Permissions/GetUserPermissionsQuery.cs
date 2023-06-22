@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
 using Fabricdot.Infrastructure.Queries;
 
-namespace ProjectName.WebApi.Application.Queries.Permissions
-{
-    /// <summary>
-    ///     List all permissions of user
-    /// </summary>
-    public class GetUserPermissionsQuery : Query<ICollection<string>>
-    {
-        public Guid UserId { get; }
+namespace ProjectName.WebApi.Application.Queries.Permissions;
 
-        public GetUserPermissionsQuery(Guid userId)
-        {
-            UserId = userId;
-        }
+/// <summary>
+///     List all permissions of user
+/// </summary>
+public class GetUserPermissionsQuery : Query<ICollection<string>>
+{
+    public Guid UserId { get; }
+
+    public GetUserPermissionsQuery(Guid userId)
+    {
+        UserId = userId;
     }
 }

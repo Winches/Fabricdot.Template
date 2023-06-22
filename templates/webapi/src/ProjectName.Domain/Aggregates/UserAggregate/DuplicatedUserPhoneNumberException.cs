@@ -1,15 +1,14 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using Fabricdot.Domain.SharedKernel;
 
-namespace ProjectName.Domain.Aggregates.UserAggregate
-{
-    [SuppressMessage("Roslynator", "RCS1194:Implement exception constructors.", Justification = "<Pending>")]
-    public class DuplicatedUserPhoneNumberException : DomainException
-    {
-        public const int ErrorCode = 1101;
+namespace ProjectName.Domain.Aggregates.UserAggregate;
 
-        public DuplicatedUserPhoneNumberException(string message = "Phone number is already taken.") : base(message, ErrorCode)
-        {
-        }
+[SuppressMessage("Roslynator", "RCS1194:Implement exception constructors.", Justification = "<Pending>")]
+public class DuplicatedUserPhoneNumberException : DomainException
+{
+    public const int ErrorCode = 1101;
+
+    public DuplicatedUserPhoneNumberException(string message = "Phone number is already taken.") : base(message, ErrorCode)
+    {
     }
 }

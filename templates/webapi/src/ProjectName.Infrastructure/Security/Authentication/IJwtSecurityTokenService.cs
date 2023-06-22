@@ -1,14 +1,12 @@
-﻿using System.Security.Claims;
-using System.Threading.Tasks;
+using System.Security.Claims;
 
-namespace ProjectName.Infrastructure.Security.Authentication
+namespace ProjectName.Infrastructure.Security.Authentication;
+
+public interface IJwtSecurityTokenService
 {
-    public interface IJwtSecurityTokenService
-    {
-        Task<JwtTokenValue> CreateTokenAsync(ClaimsPrincipal principal);
+    Task<JwtTokenValue> CreateTokenAsync(ClaimsPrincipal principal);
 
-        Task<JwtTokenValue> RefreshTokenAsync(
-            string accessToken,
-            string refreshToken);
-    }
+    Task<JwtTokenValue> RefreshTokenAsync(
+        string accessToken,
+        string refreshToken);
 }

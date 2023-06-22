@@ -1,9 +1,8 @@
-﻿namespace ProjectName.WebApi.Application.Models.ReadModels
-{
-    public class ClaimDto
-    {
-        public string ClaimType { get; set; }
+namespace ProjectName.WebApi.Application.Models.ReadModels;
 
-        public string ClaimValue { get; set; }
-    }
+public class ClaimDto
+{
+    public string ClaimType { get; set; } = null!;
+
+    public string ClaimValue { get; set; } = null!;
 }

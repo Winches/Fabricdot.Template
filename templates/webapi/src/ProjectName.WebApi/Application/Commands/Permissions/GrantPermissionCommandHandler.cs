@@ -1,30 +1,25 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
 using Fabricdot.Authorization;
 using Fabricdot.Infrastructure.Commands;
 using Fabricdot.PermissionGranting;
-using MediatR;
 
-namespace ProjectName.WebApi.Application.Commands.Permissions
+namespace ProjectName.WebApi.Application.Commands.Permissions;
+
+internal class GrantPermissionCommandHandler : CommandHandler<GrantPermissionCommand>
 {
-    internal class GrantPermissionCommandHandler : CommandHandler<GrantPermissionCommand>
+    private readonly IPermissionGrantingManager _permissionGrantingManager;
+
+    public GrantPermissionCommandHandler(IPermissionGrantingManager permissionGrantingManager)
     {
-        private readonly IPermissionGrantingManager _permissionGrantingManager;
+        _permissionGrantingManager = permissionGrantingManager;
+    }
 
-        public GrantPermissionCommandHandler(IPermissionGrantingManager permissionGrantingManager)
-        {
-            _permissionGrantingManager = permissionGrantingManager;
-        }
-
-        public override async Task<Unit> ExecuteAsync(
-            GrantPermissionCommand command,
-            CancellationToken cancellationToken)
-        {
-            await _permissionGrantingManager.GrantAsync(
-                new GrantSubject(command.GrantType, command.Subject),
-                command.Object,
-                cancellationToken);
-            return Unit.Value;
-        }
+    public override async Task ExecuteAsync(
+        GrantPermissionCommand command,
+        CancellationToken cancellationToken)
+    {
+        await _permissionGrantingManager.GrantAsync(
+            new GrantSubject(command.GrantType, command.Subject),
+            command.Object,
+            cancellationToken);
     }
 }

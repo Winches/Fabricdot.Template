@@ -1,16 +1,13 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
 using Fabricdot.Domain.Services;
 
-namespace ProjectName.Domain.Aggregates.UserAggregate
+namespace ProjectName.Domain.Aggregates.UserAggregate;
+
+/// <summary>
+///     User domain service
+/// </summary>
+public interface IUserService : IDomainService
 {
-    /// <summary>
-    ///     User domain service
-    /// </summary>
-    public interface IUserService : IDomainService
-    {
-        Task EnsurePhoneNumberIsUniqueAsync(
-            User user,
-            CancellationToken cancellationToken = default);
-    }
+    Task EnsurePhoneNumberIsUniqueAsync(
+        User user,
+        CancellationToken cancellationToken = default);
 }

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
 using ProjectName.WebApi.Application.Queries.Roles;
 
-namespace ProjectName.WebApi.Application.Queries.Users
+namespace ProjectName.WebApi.Application.Queries.Users;
+
+public class GetUserRolesQuery : UserQueryBase<ICollection<RoleDto>>
 {
-    public class GetUserRolesQuery : UserQueryBase<ICollection<RoleDto>>
+    public GetUserRolesQuery(Guid userId) : base(userId)
     {
-        public GetUserRolesQuery(Guid userId) : base(userId)
-        {
-        }
     }
 }
