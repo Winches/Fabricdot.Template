@@ -1,8 +1,12 @@
+using AutoMapper;
+using AutoMapper.Configuration.Annotations;
 using Fabricdot.Domain.Auditing;
+using ProjectName.Domain.Aggregates.UserAggregate;
 using ProjectName.WebApi.Application.Queries.Roles;
 
 namespace ProjectName.WebApi.Application.Queries.Users;
 
+[AutoMap(typeof(User))]
 public class UserDetailsDto : IAuditEntity
 {
     public Guid Id { get; set; }
@@ -43,5 +47,6 @@ public class UserDetailsDto : IAuditEntity
     /// <inheritdoc />
     public string? LastModifierId { get; set; }
 
-    public ICollection<RoleDto> Roles { get; set; } = new List<RoleDto>();
+    [Ignore]
+    public ICollection<RoleDto> Roles { get; set; } = [];
 }

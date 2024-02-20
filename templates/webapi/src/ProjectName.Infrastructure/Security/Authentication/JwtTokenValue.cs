@@ -2,29 +2,20 @@ using Ardalis.GuardClauses;
 
 namespace ProjectName.Infrastructure.Security.Authentication;
 
-public class JwtTokenValue
+public class JwtTokenValue(
+    string jti,
+    string accessToken,
+    string refreshToken,
+    long expireIn,
+    string tokenType = "Bearer")
 {
-    public string Jti { get; }
+    public string Jti { get; } = Guard.Against.NullOrEmpty(jti, nameof(jti));
 
-    public string AccessToken { get; }
+    public string AccessToken { get; } = Guard.Against.NullOrEmpty(accessToken, nameof(accessToken));
 
-    public string RefreshToken { get; }
+    public string RefreshToken { get; } = Guard.Against.NullOrEmpty(refreshToken, nameof(refreshToken));
 
-    public long ExpireIn { get; }
+    public long ExpireIn { get; } = expireIn;
 
-    public string TokenType { get; }
-
-    public JwtTokenValue(
-        string jti,
-        string accessToken,
-        string refreshToken,
-        long expireIn,
-        string tokenType = "Bearer")
-    {
-        Jti = Guard.Against.NullOrEmpty(jti, nameof(jti));
-        AccessToken = Guard.Against.NullOrEmpty(accessToken, nameof(accessToken));
-        RefreshToken = Guard.Against.NullOrEmpty(refreshToken, nameof(refreshToken));
-        ExpireIn = expireIn;
-        TokenType = Guard.Against.NullOrEmpty(tokenType, nameof(tokenType));
-    }
+    public string TokenType { get; } = Guard.Against.NullOrEmpty(tokenType, nameof(tokenType));
 }

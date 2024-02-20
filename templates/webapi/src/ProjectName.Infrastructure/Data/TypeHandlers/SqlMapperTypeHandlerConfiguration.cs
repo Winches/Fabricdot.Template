@@ -8,7 +8,7 @@ public static class SqlMapperTypeHandlerConfiguration
 {
     public static void AddTypeHandlers()
     {
-        //register enumeration handlers
+        // register enumeration handlers
         var enumerationType = ReflectionHelper.FindTypes(typeof(Enumeration), AppDomain.CurrentDomain.GetAssemblies());
         enumerationType
             .ForEach(v =>

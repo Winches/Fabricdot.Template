@@ -32,10 +32,10 @@ public class AppNameInfrastructureModule : ModuleBase
 
         #region database
 
-        var connectionString = context.Configuration.GetConnectionString("Default");
+        var connectionString = context.Configuration.GetConnectionString("Default")!;
         services.AddEfDbContext<AppDbContext>(opts =>
         {
-            //TODO:use database provider.
+            // TODO:use database provider.
 
             opts.UseLoggerFactory(s_dbLoggerFactory);
             //-:cnd:noEmit

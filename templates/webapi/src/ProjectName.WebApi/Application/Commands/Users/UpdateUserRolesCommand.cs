@@ -9,5 +9,5 @@ public class UpdateUserRolesCommand : Command
     public Guid UserId { get; set; }
 
     [Required]
-    public string[] RoleNames { get; set; } = Array.Empty<string>();
+    public string[] RoleNames { get; set; } = [];
 }

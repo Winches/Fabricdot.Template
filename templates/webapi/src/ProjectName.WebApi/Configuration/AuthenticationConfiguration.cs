@@ -13,7 +13,7 @@ public static class AuthenticationConfiguration
     {
         var config = configuration.GetSection(JwtSecurityTokenOptions.Name);
         services.Configure<JwtSecurityTokenOptions>(config);
-        var options = config.Get<JwtSecurityTokenOptions>();
+        var options = config.Get<JwtSecurityTokenOptions>()!;
 
         var key = Encoding.ASCII.GetBytes(options.SecretKey);
 

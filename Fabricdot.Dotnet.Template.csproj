@@ -1,16 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
 
     <PackageType>Template</PackageType>
-    <PackageVersion>0.7.0</PackageVersion>
+    <PackageVersion>0.8.0</PackageVersion>
     <PackageId>Fabricdot.Dotnet.Template</PackageId>
     <Title>Fabricdot Template</Title>
     <Authors>Cyan</Authors>
-    <Description>>Templates use to build web application with Fabricdot.Core</Description>
+    <Description>Templates use to build web application with Fabricdot.Core</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>dotnet-new;templates;fabricdot;aspnetcore</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://github.com/Winches/Fabricdot.Template</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Winches/Fabricdot.Template</RepositoryUrl>
 
@@ -24,6 +25,7 @@
   <ItemGroup>
     <Content Include="templates\**\*" Exclude="**\**\bin\**;templates\**\obj\**;**\**\.vs\**;**\.vscode\**\*" />
     <Compile Remove="**\*" />
+    <None Include="README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
 </Project>

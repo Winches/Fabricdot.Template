@@ -3,12 +3,8 @@ using Fabricdot.Infrastructure.Data;
 
 namespace ProjectName.Infrastructure.Data;
 
-public class DefaultSqlConnectionFactory : SqlConnectionFactory
+public class DefaultSqlConnectionFactory(string connectionString) : SqlConnectionFactory(connectionString)
 {
-    public DefaultSqlConnectionFactory(string connectionString) : base(connectionString)
-    {
-    }
-
     protected override IDbConnection CreateConnection(string connectionString)
     {
         // Create db connection.

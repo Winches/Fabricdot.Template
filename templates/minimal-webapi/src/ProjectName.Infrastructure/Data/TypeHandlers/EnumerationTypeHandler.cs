@@ -7,9 +7,9 @@ namespace ProjectName.Infrastructure.Data.TypeHandlers;
 internal class EnumerationTypeHandler<T> : SqlMapper.TypeHandler<T> where T : Enumeration
 {
     /// <inheritdoc />
-    public override void SetValue(IDbDataParameter parameter, T value)
+    public override void SetValue(IDbDataParameter parameter, T? value)
     {
-        parameter.Value = value.Value;
+        parameter.Value = value?.Value;
         parameter.DbType = DbType.Int32;
     }
 

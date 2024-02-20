@@ -4,14 +4,9 @@ using ProjectName.Domain.Specifications;
 
 namespace ProjectName.Domain.Aggregates.UserAggregate;
 
-internal class UserService : IUserService
+internal class UserService(IUserRepository<User> userRepository) : IUserService
 {
-    private readonly IUserRepository<User> _userRepository;
-
-    public UserService(IUserRepository<User> userRepository)
-    {
-        _userRepository = userRepository;
-    }
+    private readonly IUserRepository<User> _userRepository = userRepository;
 
     public async Task EnsurePhoneNumberIsUniqueAsync(
         User user,

@@ -31,7 +31,7 @@ internal class AuthenticateCommandHandler : CommandHandler<AuthenticateCommand, 
         var signInResult = await _signInManager.PasswordSignInAsync(user, command.Password, false, true);
         if (!signInResult.Succeeded)
         {
-            if (signInResult.IsNotAllowed)//confirm email or phone number
+            if (signInResult.IsNotAllowed)// confirm email or phone number
                 throw new UserNotAllowedException();
 
             if (signInResult.IsLockedOut)

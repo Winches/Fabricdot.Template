@@ -7,7 +7,7 @@ namespace ProjectName.WebApi.Configuration;
 /// </summary>
 public class MappingProfile : Profile
 {
-    //configure mapping
+    // configure mapping
     public MappingProfile()
     {
     }

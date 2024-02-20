@@ -1,7 +1,10 @@
+using AutoMapper;
+using ProjectName.Domain.Aggregates.RoleAggregate;
 using ProjectName.WebApi.Application.Models.ReadModels;
 
 namespace ProjectName.WebApi.Application.Queries.Roles;
 
+[AutoMap(typeof(Role))]
 public class RoleDetailsDto
 {
     public Guid Id { get; set; }

@@ -12,32 +12,22 @@ using P = ProjectName.Infrastructure.Security.ApplicationPermissions;
 
 namespace ProjectName.Infrastructure.Data;
 
-internal class DataBuilder : ITransientDependency
+internal class DataBuilder(
+    IUnitOfWorkManager unitOfWorkManager,
+    IGuidGenerator guidGnerator,
+    UserManager<User> userManager,
+    RoleManager<Role> roleManager,
+    IPermissionManager permissionManager,
+    IPermissionGrantingManager permissionGrantingManager) : ITransientDependency
 {
     protected const string AdminUserName = "admin";
     protected const string AdminPassword = "Administrator@123";
-    private readonly IUnitOfWorkManager _unitOfWorkManager;
-    private readonly IGuidGenerator _guidGnerator;
-    private readonly UserManager<User> _userManager;
-    private readonly RoleManager<Role> _roleManager;
-    private readonly IPermissionManager _permissionManager;
-    private readonly IPermissionGrantingManager _permissionGrantingManager;
-
-    public DataBuilder(
-        IUnitOfWorkManager unitOfWorkManager,
-        IGuidGenerator guidGnerator,
-        UserManager<User> userManager,
-        RoleManager<Role> roleManager,
-        IPermissionManager permissionManager,
-        IPermissionGrantingManager permissionGrantingManager)
-    {
-        _unitOfWorkManager = unitOfWorkManager;
-        _guidGnerator = guidGnerator;
-        _userManager = userManager;
-        _roleManager = roleManager;
-        _permissionManager = permissionManager;
-        _permissionGrantingManager = permissionGrantingManager;
-    }
+    private readonly IUnitOfWorkManager _unitOfWorkManager = unitOfWorkManager;
+    private readonly IGuidGenerator _guidGnerator = guidGnerator;
+    private readonly UserManager<User> _userManager = userManager;
+    private readonly RoleManager<Role> _roleManager = roleManager;
+    private readonly IPermissionManager _permissionManager = permissionManager;
+    private readonly IPermissionGrantingManager _permissionGrantingManager = permissionGrantingManager;
 
     public virtual async Task SeedAsync()
     {

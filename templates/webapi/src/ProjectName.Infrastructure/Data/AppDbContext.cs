@@ -8,13 +8,9 @@ using ProjectName.Domain.Aggregates.UserAggregate;
 
 namespace ProjectName.Infrastructure.Data;
 
-public class AppDbContext : IdentityDbContext<User, Role>, IPermissionGrantingDbContext
+public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbContext<User, Role>(options), IPermissionGrantingDbContext
 {
     public DbSet<GrantedPermission> GrantedPermissions { get; set; } = null!;
-
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-    {
-    }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

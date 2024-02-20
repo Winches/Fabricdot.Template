@@ -24,5 +24,5 @@ public class UpdateUserCommand : Command
 
     [Required]
     [MinLength(1)]
-    public Guid[] OrganizationIds { get; set; } = Array.Empty<Guid>();
+    public Guid[] OrganizationIds { get; set; } = [];
 }

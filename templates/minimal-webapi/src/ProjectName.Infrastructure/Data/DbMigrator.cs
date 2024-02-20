@@ -4,14 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace ProjectName.Infrastructure.Data;
 
-public sealed class DbMigrator : ITransientDependency
+public sealed class DbMigrator(IServiceProvider serviceProvider) : ITransientDependency
 {
-    private readonly IServiceProvider _serviceProvider;
-
-    public DbMigrator(IServiceProvider serviceProvider)
-    {
-        _serviceProvider = serviceProvider;
-    }
+    private readonly IServiceProvider _serviceProvider = serviceProvider;
 
     public async Task MigrateAsync()
     {

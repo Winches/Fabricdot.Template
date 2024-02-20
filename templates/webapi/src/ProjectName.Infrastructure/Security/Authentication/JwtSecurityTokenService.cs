@@ -8,21 +8,14 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace ProjectName.Infrastructure.Security.Authentication;
 
-public class JwtSecurityTokenService : IJwtSecurityTokenService, ISingletonDependency
+public class JwtSecurityTokenService(
+    IOptions<JwtSecurityTokenOptions> options,
+    ILogger<JwtSecurityTokenService> logger) : IJwtSecurityTokenService, ISingletonDependency
 {
     protected const string RefreshTokenAudience = "_refresh";
-    protected JwtSecurityTokenOptions Options { get; }
-    protected JwtSecurityTokenHandler TokenHandler { get; }
-    protected ILogger<JwtSecurityTokenService> Logger { get; }
-
-    public JwtSecurityTokenService(
-        IOptions<JwtSecurityTokenOptions> options,
-        ILogger<JwtSecurityTokenService> logger)
-    {
-        Options = options.Value;
-        TokenHandler = new JwtSecurityTokenHandler();
-        Logger = logger;
-    }
+    protected JwtSecurityTokenOptions Options { get; } = options.Value;
+    protected JwtSecurityTokenHandler TokenHandler { get; } = new();
+    protected ILogger<JwtSecurityTokenService> Logger { get; } = logger;
 
     public virtual async Task<JwtTokenValue> CreateTokenAsync(ClaimsPrincipal principal)
     {
@@ -103,10 +96,10 @@ public class JwtSecurityTokenService : IJwtSecurityTokenService, ISingletonDepen
     {
         var signingCredentials = GetSigningCredentials(Options.SecretKey);
         var claims = new List<Claim>
-    {
-        accessToken.Claims.Single(v=>v.Type==JwtRegisteredClaimNames.NameId),
-        new Claim(JwtRegisteredClaimNames.Aud,RefreshTokenAudience),
-    };
+        {
+            accessToken.Claims.Single(v=>v.Type==JwtRegisteredClaimNames.NameId),
+            new(JwtRegisteredClaimNames.Aud,RefreshTokenAudience),
+        };
 
         var refreshTokenDescriptor = new SecurityTokenDescriptor
         {

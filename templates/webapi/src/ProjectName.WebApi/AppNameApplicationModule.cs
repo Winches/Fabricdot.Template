@@ -22,12 +22,6 @@ public class AppNameApplicationModule : ModuleBase
         services.AddControllers()
                 .AddJsonOptions(opts => opts.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter()));
 
-        services.Configure<RouteOptions>(options =>
-        {
-            options.LowercaseUrls = true;
-            options.LowercaseQueryStrings = true;
-        });
-
         services.AddSwagger();
 
         SystemClock.Configure(DateTimeKind.Utc);

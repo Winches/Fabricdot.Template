@@ -1,3 +1,4 @@
+using Fabricdot.WebApi.Swagger;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -5,6 +6,8 @@ namespace ProjectName.WebApi.Configuration;
 
 public static class SwaggerConfiguration
 {
+    private static readonly string[] s_setupAction = ["ProjectName.WebApi", "ProjectName.Domain", "ProjectName.Domain.Shared"];
+
     public static IServiceCollection AddSwagger(this IServiceCollection services)
     {
         services.AddSwaggerGen(c =>
@@ -21,13 +24,18 @@ public static class SwaggerConfiguration
                 }
             });
 
+            c.SchemaFilter<EnumerationSchemaFilter>();
             c.EnableAnnotations();
+            c.DescribeAllParametersInCamelCase();
+            c.IgnoreObsoleteProperties();
+            c.IgnoreObsoleteActions();
+            c.SupportNonNullableReferenceTypes();
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 Description = "JWT Authorization:'Bearer token'",
                 Name = "Authorization",
                 In = ParameterLocation.Header,
-                Type = SecuritySchemeType.ApiKey,
+                Type = SecuritySchemeType.Http,
                 Scheme = "Bearer"
             });
 
@@ -49,7 +57,7 @@ public static class SwaggerConfiguration
             }
             });
 
-            var xmlFile = new[] { "ProjectName.WebApi", "ProjectName.Domain", "ProjectName.Domain.Shared" };
+            var xmlFile = s_setupAction;
             c.IncludeXmlComments(xmlFile, true);
         });
         return services;

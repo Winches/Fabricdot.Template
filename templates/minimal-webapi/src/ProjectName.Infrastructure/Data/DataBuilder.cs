@@ -3,19 +3,14 @@ using Fabricdot.Infrastructure.Uow.Abstractions;
 
 namespace ProjectName.Infrastructure.Data;
 
-internal class DataBuilder : ITransientDependency
+internal class DataBuilder(IUnitOfWorkManager unitOfWorkManager) : ITransientDependency
 {
-    private readonly IUnitOfWorkManager _unitOfWorkManager;
-
-    public DataBuilder(IUnitOfWorkManager unitOfWorkManager)
-    {
-        _unitOfWorkManager = unitOfWorkManager;
-    }
+    private readonly IUnitOfWorkManager _unitOfWorkManager = unitOfWorkManager;
 
     public virtual async Task SeedAsync()
     {
         using var uow = _unitOfWorkManager.Begin();
-        //seed data
+        // seed data
         await uow.CommitChangesAsync();
     }
 }

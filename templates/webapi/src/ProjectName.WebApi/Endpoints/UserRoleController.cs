@@ -29,7 +29,7 @@ public class UserRoleController : EndPointBase
         [FromRoute] Guid id,
         [FromRoute] string role)
     {
-        await CommandBus.PublishAsync(new AddUserRolesCommand(id, new[] { role }));
+        await CommandBus.PublishAsync(new AddUserRolesCommand(id, [role]));
     }
 
     /// <summary>
@@ -59,7 +59,7 @@ public class UserRoleController : EndPointBase
         [FromRoute] Guid id,
         [FromRoute] string role)
     {
-        await CommandBus.PublishAsync(new RemoveUserRolesCommand(id, new[] { role }));
+        await CommandBus.PublishAsync(new RemoveUserRolesCommand(id, [role]));
     }
 
     /// <summary>
